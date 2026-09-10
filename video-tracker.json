@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-08-29",
-  "days_generated": 28,
+  "last_updated": "2026-09-10",
+  "days_generated": 35,
   "generated": [
     {
       "day": 1,
@@ -152,9 +152,7 @@
       "job_ids": ["7c9beede-1b1b-4806-a154-55bc0745b377"],
       "notes": "Primer intento (8ab15f95) bloqueado por NSFW — regenerado con prompt limpio",
       "generated_at": "2026-08-29"
-    }
-  ],
-  ],
+    },
     {
       "day": 15,
       "date": "15/09/2026",
@@ -231,8 +229,7 @@
       "platform": "Higgsfield",
       "job_ids": ["7e4931db-e57e-4910-9d5a-cd769a4d08c6"],
       "generated_at": "2026-08-29"
-    }
-  ],
+    },
     {
       "day": 22,
       "date": "22/09/2026",
@@ -309,15 +306,85 @@
       "platform": "Higgsfield",
       "job_ids": ["284d3f95-284d-450e-8b5d-68acdb6912aa"],
       "generated_at": "2026-08-29"
-    }
-  ],
-  "pending": [
+    },
     {
-      "day": 10,
-      "job_id": "278105bc-e09d-4d85-b271-855ab6a5bc82",
-      "slide": 5,
-      "note": "Slide 5 de 6 del carrusel Día 10 — aún procesando en Higgsfield"
+      "day": 29,
+      "date": "29/09/2026",
+      "format": "Carrusel",
+      "topic": "El ácido que regeneró lo que el tiempo borró",
+      "platform": "Higgsfield",
+      "job_ids": [
+        "dd8509e8-b6c9-4112-8e25-336351879334",
+        "a9e66b18-9300-47e5-b905-e952da86cf78",
+        "8f745a3b-5c70-4b80-8258-66e508616519",
+        "1798f58d-1ee4-4783-96ce-25853a90e5f9",
+        "b554fdd1-ab34-43a8-b4fb-adbadb81326a",
+        "88a3670e-c787-491a-88a8-c47881af64d5"
+      ],
+      "generated_at": "2026-09-10"
+    },
+    {
+      "day": 30,
+      "date": "30/09/2026",
+      "format": "Reel",
+      "topic": "La limpieza que destruyó tu piel sin que lo notaras",
+      "platform": "Higgsfield",
+      "job_ids": ["79e294aa-925e-4767-b11a-97cdb95291ec"],
+      "generated_at": "2026-09-10"
+    },
+    {
+      "day": 31,
+      "date": "01/10/2026",
+      "format": "Carrusel",
+      "topic": "Los cinco signos que tu piel manda cuando necesita ayuda",
+      "platform": "Higgsfield",
+      "job_ids": [
+        "878fd4cd-97f0-4d2e-b8d4-728ff2b6c0ac",
+        "2a5d5542-dc21-4556-b592-74fcbf1cc1a3",
+        "1f5fdccb-be76-4830-9d40-b8a010e78be0",
+        "1f595d60-1fc4-4ef5-87ba-1226c74f8b2d",
+        "166283df-3202-4794-8ed2-8088dd06d629",
+        "36dd5d78-287d-4c25-9492-518670832475"
+      ],
+      "generated_at": "2026-09-10"
+    },
+    {
+      "day": 32,
+      "date": "02/10/2026",
+      "format": "Reel",
+      "topic": "El sol de invierno que nadie teme y todos deberían",
+      "platform": "Higgsfield",
+      "job_ids": ["38e4e518-fda9-4fe2-9c00-3bd4d4cb91ef"],
+      "generated_at": "2026-09-10"
+    },
+    {
+      "day": 33,
+      "date": "03/10/2026",
+      "format": "Stories",
+      "topic": "La vitamina que falta en casi todas las rutinas",
+      "platform": "Higgsfield",
+      "job_ids": ["5ddd3679-1b4b-4049-9ed1-3b3e20c07784"],
+      "generated_at": "2026-09-10"
+    },
+    {
+      "day": 34,
+      "date": "04/10/2026",
+      "format": "Foto / Quote",
+      "topic": "La piel que se defiende sola cuando le das lo que necesita",
+      "platform": "Higgsfield",
+      "job_ids": ["97b82aa9-29c7-4107-8f10-a12c9a8a27f7"],
+      "generated_at": "2026-09-10"
+    },
+    {
+      "day": 35,
+      "date": "05/10/2026",
+      "format": "Reel",
+      "topic": "El orden que lo cambia todo en tu protocolo",
+      "platform": "Higgsfield",
+      "job_ids": ["664a7360-2f03-4be9-ab00-dcc320d46b79"],
+      "generated_at": "2026-09-10"
     }
   ],
+  "pending": [],
   "notes": "Tracking automático de vídeos generados. Nunca repetir el mismo día/tema."
 }
