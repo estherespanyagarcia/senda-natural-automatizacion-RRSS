@@ -1,0 +1,258 @@
+{
+  "name": "Senda Natural – Producción Diaria",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "senda-natural-videos",
+        "responseMode": "onReceived",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "id": "f1a2b3c4-0001-4000-a001-000000000001",
+      "name": "Webhook – Vídeos Listos",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 300],
+      "webhookId": "senda-natural-videos"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "check-ig1",
+              "leftValue": "={{ $json.body.ig1_url }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "notEmpty" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f1a2b3c4-0002-4000-a002-000000000002",
+      "name": "¿Vídeos OK?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "=🎬 <b>4 vídeos listos — {{ $json.body.tema }}</b>\n\n📱 <b>IG Reel A</b>\n<a href=\"{{ $json.body.ig1_url }}\">Ver en ElevenLabs ↗</a>\n\n📱 <b>IG Reel B</b>\n<a href=\"{{ $json.body.ig2_url }}\">Ver en ElevenLabs ↗</a>\n\n🎵 <b>TikTok A</b>\n<a href=\"{{ $json.body.tiktok1_url }}\">Ver en ElevenLabs ↗</a>\n\n🎵 <b>TikTok B</b>\n<a href=\"{{ $json.body.tiktok2_url }}\">Ver en ElevenLabs ↗</a>\n\n¿Los apruebas para publicar?",
+        "parseMode": "HTML",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Publicar hoy",
+                    "additionalFields": {
+                      "callbackData": "={{ 'approve_' + $json.body.dia }}"
+                    }
+                  },
+                  {
+                    "text": "🔄 Regenerar",
+                    "additionalFields": {
+                      "callbackData": "={{ 'regenerate_' + $json.body.dia }}"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "❌ Descartar",
+                    "additionalFields": {
+                      "callbackData": "={{ 'reject_' + $json.body.dia }}"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "disable_web_page_preview": false
+        }
+      },
+      "id": "f1a2b3c4-0003-4000-a003-000000000003",
+      "name": "Telegram – Notificar Vídeos",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [680, 200],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CREDENTIAL_ID",
+          "name": "Senda Natural Telegram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "⚠️ <b>Error en pipeline de vídeos</b>\n\nNo se recibieron URLs válidas. Revisa los logs de la rutina de Claude Code.",
+        "parseMode": "HTML",
+        "additionalFields": {}
+      },
+      "id": "f1a2b3c4-0004-4000-a004-000000000004",
+      "name": "Telegram – Notificar Error",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [680, 440],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CREDENTIAL_ID",
+          "name": "Senda Natural Telegram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": ["callback_query"],
+        "additionalFields": {}
+      },
+      "id": "f1a2b3c4-0010-4000-a010-000000000010",
+      "name": "Telegram Trigger – Aprobación",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 700],
+      "webhookId": "senda-telegram-approval",
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CREDENTIAL_ID",
+          "name": "Senda Natural Telegram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "check-approve",
+              "leftValue": "={{ $json.callback_query.data }}",
+              "rightValue": "approve_",
+              "operator": { "type": "string", "operation": "startsWith" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f1a2b3c4-0011-4000-a011-000000000011",
+      "name": "¿Aprobado?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [460, 700]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.callback_query.from.id }}",
+        "text": "✅ <b>Vídeos aprobados.</b>\n\nListo para publicar. Recuerda descargar y subir a cada plataforma desde los enlaces de ElevenLabs.",
+        "parseMode": "HTML",
+        "additionalFields": {}
+      },
+      "id": "f1a2b3c4-0012-4000-a012-000000000012",
+      "name": "Telegram – Confirmar Aprobación",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [680, 600],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CREDENTIAL_ID",
+          "name": "Senda Natural Telegram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.callback_query.from.id }}",
+        "text": "❌ <b>Vídeos descartados.</b>\n\nSe marcarán como pendientes y se regenerarán en la próxima ejecución.",
+        "parseMode": "HTML",
+        "additionalFields": {}
+      },
+      "id": "f1a2b3c4-0013-4000-a013-000000000013",
+      "name": "Telegram – Confirmar Rechazo",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [680, 820],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CREDENTIAL_ID",
+          "name": "Senda Natural Telegram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $env.VERCEL_APP_URL + '/api/automation/save-results' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-cron-secret", "value": "={{ $env.CRON_SECRET }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "action", "value": "reject" },
+            { "name": "dia", "value": "={{ $json.callback_query.data.replace('reject_', '').replace('regenerate_', '') }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f1a2b3c4-0014-4000-a014-000000000014",
+      "name": "HTTP – Marcar como pendiente",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 820]
+    }
+  ],
+  "connections": {
+    "Webhook – Vídeos Listos": {
+      "main": [
+        [{ "node": "¿Vídeos OK?", "type": "main", "index": 0 }]
+      ]
+    },
+    "¿Vídeos OK?": {
+      "main": [
+        [{ "node": "Telegram – Notificar Vídeos", "type": "main", "index": 0 }],
+        [{ "node": "Telegram – Notificar Error", "type": "main", "index": 0 }]
+      ]
+    },
+    "Telegram Trigger – Aprobación": {
+      "main": [
+        [{ "node": "¿Aprobado?", "type": "main", "index": 0 }]
+      ]
+    },
+    "¿Aprobado?": {
+      "main": [
+        [{ "node": "Telegram – Confirmar Aprobación", "type": "main", "index": 0 }],
+        [{ "node": "Telegram – Confirmar Rechazo", "type": "main", "index": 0 }]
+      ]
+    },
+    "Telegram – Confirmar Rechazo": {
+      "main": [
+        [{ "node": "HTTP – Marcar como pendiente", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "instanceId": "senda-natural-produccion"
+  }
+}
