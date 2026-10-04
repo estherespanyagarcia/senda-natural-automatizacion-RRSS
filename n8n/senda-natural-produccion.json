@@ -40,7 +40,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "chatId": "={{ $vars.TELEGRAM_CHAT_ID }}",
         "text": "=🎬 <b>4 vídeos listos — {{ $json.body.tema }}</b>\n\n📱 <b>IG Reel A</b>\n<a href=\"{{ $json.body.ig1_url }}\">Ver en ElevenLabs ↗</a>\n\n📱 <b>IG Reel B</b>\n<a href=\"{{ $json.body.ig2_url }}\">Ver en ElevenLabs ↗</a>\n\n🎵 <b>TikTok A</b>\n<a href=\"{{ $json.body.tiktok1_url }}\">Ver en ElevenLabs ↗</a>\n\n🎵 <b>TikTok B</b>\n<a href=\"{{ $json.body.tiktok2_url }}\">Ver en ElevenLabs ↗</a>\n\n¿Los apruebas para publicar?",
         "parseMode": "HTML",
         "replyMarkup": "inlineKeyboard",
@@ -96,7 +96,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "chatId": "={{ $vars.TELEGRAM_CHAT_ID }}",
         "text": "⚠️ <b>Error en pipeline de vídeos</b>\n\nNo se recibieron URLs válidas. Revisa los logs de la rutina de Claude Code.",
         "parseMode": "HTML",
         "additionalFields": {}
