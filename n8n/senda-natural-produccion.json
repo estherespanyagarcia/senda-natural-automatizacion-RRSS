@@ -40,6 +40,37 @@
     },
     {
       "parameters": {
+        "method": "PATCH",
+        "url": "=https://jrovkkjxvzuzcpexdydy.supabase.co/rest/v1/content_calendar?dia=eq.{{ $json.body.dia }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "={{ $vars.SUPABASE_ANON_KEY }}" },
+            { "name": "Authorization", "value": "=Bearer {{ $vars.SUPABASE_ANON_KEY }}" },
+            { "name": "Prefer", "value": "return=minimal" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParameters": {
+          "parameters": [
+            { "name": "elevenlabs_ig1_url", "value": "={{ $json.body.ig1_url }}" },
+            { "name": "elevenlabs_ig2_url", "value": "={{ $json.body.ig2_url }}" },
+            { "name": "elevenlabs_tiktok1_url", "value": "={{ $json.body.tiktok1_url }}" },
+            { "name": "elevenlabs_tiktok2_url", "value": "={{ $json.body.tiktok2_url }}" },
+            { "name": "status", "value": "listo" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f1a2b3c4-0020-4000-a020-000000000020",
+      "name": "Supabase – Guardar URLs",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 200]
+    },
+    {
+      "parameters": {
         "chatId": "={{ $vars.TELEGRAM_CHAT_ID }}",
         "text": "=🎬 <b>4 vídeos listos — {{ $json.body.tema }}</b>\n\n📱 <b>IG Reel A</b>\n<a href=\"{{ $json.body.ig1_url }}\">Ver en ElevenLabs ↗</a>\n\n📱 <b>IG Reel B</b>\n<a href=\"{{ $json.body.ig2_url }}\">Ver en ElevenLabs ↗</a>\n\n🎵 <b>TikTok A</b>\n<a href=\"{{ $json.body.tiktok1_url }}\">Ver en ElevenLabs ↗</a>\n\n🎵 <b>TikTok B</b>\n<a href=\"{{ $json.body.tiktok2_url }}\">Ver en ElevenLabs ↗</a>\n\n¿Los apruebas para publicar?",
         "parseMode": "HTML",
@@ -86,7 +117,7 @@
       "name": "Telegram – Notificar Vídeos",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [680, 200],
+      "position": [900, 200],
       "credentials": {
         "telegramApi": {
           "id": "TELEGRAM_CREDENTIAL_ID",
@@ -156,7 +187,7 @@
     {
       "parameters": {
         "chatId": "={{ $json.callback_query.from.id }}",
-        "text": "✅ <b>Vídeos aprobados.</b>\n\nListo para publicar. Recuerda descargar y subir a cada plataforma desde los enlaces de ElevenLabs.",
+        "text": "⏳ <b>Aprobado. Publicando en Instagram ahora...</b>\n\nEsto tardará ~2 minutos. Te aviso cuando termine.",
         "parseMode": "HTML",
         "additionalFields": {}
       },
@@ -165,6 +196,213 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [680, 600],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CREDENTIAL_ID",
+          "name": "Senda Natural Telegram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const triggerData = $('Telegram Trigger – Aprobación').item.json;\nconst callbackData = triggerData.callback_query.data;\nconst dia = callbackData.replace('approve_', '');\nreturn [{ json: { dia } }];"
+      },
+      "id": "f1a2b3c4-0021-4000-a021-000000000021",
+      "name": "Code – Extraer DIA",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 600]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://jrovkkjxvzuzcpexdydy.supabase.co/rest/v1/content_calendar?dia=eq.{{ $json.dia }}&select=elevenlabs_ig1_url,elevenlabs_ig2_url,tema,guion",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "={{ $vars.SUPABASE_ANON_KEY }}" },
+            { "name": "Authorization", "value": "=Bearer {{ $vars.SUPABASE_ANON_KEY }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f1a2b3c4-0022-4000-a022-000000000022",
+      "name": "Supabase – Obtener URLs",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1120, 600]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.instagram.com/v21.0/28840447828990358/media",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{ $vars.INSTAGRAM_TOKEN }}" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParameters": {
+          "parameters": [
+            { "name": "media_type", "value": "REELS" },
+            { "name": "video_url", "value": "={{ $json.elevenlabs_ig1_url }}" },
+            { "name": "caption", "value": "={{ ($json.guion || $json.tema) + '\\n\\n🌿 Haz tu diagnóstico de piel gratuito en app.sendanatural.lat' }}" },
+            { "name": "share_to_feed", "value": "true" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f1a2b3c4-0023-4000-a023-000000000023",
+      "name": "IG – Crear Reel A",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1340, 600]
+    },
+    {
+      "parameters": {
+        "unit": "seconds",
+        "amount": 60,
+        "resume": "timeInterval"
+      },
+      "id": "f1a2b3c4-0024-4000-a024-000000000024",
+      "name": "Esperar 60s – Reel A",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [1560, 600],
+      "webhookId": "wait-reel-a"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.instagram.com/v21.0/28840447828990358/media_publish",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{ $vars.INSTAGRAM_TOKEN }}" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParameters": {
+          "parameters": [
+            { "name": "creation_id", "value": "={{ $json.id }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f1a2b3c4-0025-4000-a025-000000000025",
+      "name": "IG – Publicar Reel A",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1780, 600]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.instagram.com/v21.0/28840447828990358/media",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{ $vars.INSTAGRAM_TOKEN }}" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParameters": {
+          "parameters": [
+            { "name": "media_type", "value": "REELS" },
+            { "name": "video_url", "value": "={{ $('Supabase – Obtener URLs').item.json.elevenlabs_ig2_url }}" },
+            { "name": "caption", "value": "={{ ($('Supabase – Obtener URLs').item.json.guion || $('Supabase – Obtener URLs').item.json.tema) + '\\n\\n🌿 Haz tu diagnóstico de piel gratuito en app.sendanatural.lat' }}" },
+            { "name": "share_to_feed", "value": "true" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f1a2b3c4-0026-4000-a026-000000000026",
+      "name": "IG – Crear Reel B",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2000, 600]
+    },
+    {
+      "parameters": {
+        "unit": "seconds",
+        "amount": 60,
+        "resume": "timeInterval"
+      },
+      "id": "f1a2b3c4-0027-4000-a027-000000000027",
+      "name": "Esperar 60s – Reel B",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [2220, 600],
+      "webhookId": "wait-reel-b"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.instagram.com/v21.0/28840447828990358/media_publish",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{ $vars.INSTAGRAM_TOKEN }}" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParameters": {
+          "parameters": [
+            { "name": "creation_id", "value": "={{ $json.id }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f1a2b3c4-0028-4000-a028-000000000028",
+      "name": "IG – Publicar Reel B",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2440, 600]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://jrovkkjxvzuzcpexdydy.supabase.co/rest/v1/content_calendar?dia=eq.{{ $('Code – Extraer DIA').item.json.dia }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "={{ $vars.SUPABASE_ANON_KEY }}" },
+            { "name": "Authorization", "value": "=Bearer {{ $vars.SUPABASE_ANON_KEY }}" },
+            { "name": "Prefer", "value": "return=minimal" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParameters": {
+          "parameters": [
+            { "name": "status", "value": "publicado" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f1a2b3c4-0029-4000-a029-000000000029",
+      "name": "Supabase – Actualizar Publicado",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2660, 600]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $vars.TELEGRAM_CHAT_ID }}",
+        "text": "=✅ <b>¡Publicado en Instagram!</b>\n\n📱 Reel A y Reel B publicados en <b>@senda_natural_</b>\n\nEstado actualizado en el calendario de contenido.",
+        "parseMode": "HTML",
+        "additionalFields": {}
+      },
+      "id": "f1a2b3c4-0030-4000-a030-000000000030",
+      "name": "Telegram – Publicado ✅",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [2880, 600],
       "credentials": {
         "telegramApi": {
           "id": "TELEGRAM_CREDENTIAL_ID",
@@ -228,8 +466,13 @@
     },
     "¿Vídeos OK?": {
       "main": [
-        [{ "node": "Telegram – Notificar Vídeos", "type": "main", "index": 0 }],
+        [{ "node": "Supabase – Guardar URLs", "type": "main", "index": 0 }],
         [{ "node": "Telegram – Notificar Error", "type": "main", "index": 0 }]
+      ]
+    },
+    "Supabase – Guardar URLs": {
+      "main": [
+        [{ "node": "Telegram – Notificar Vídeos", "type": "main", "index": 0 }]
       ]
     },
     "Telegram Trigger – Aprobación": {
@@ -241,6 +484,56 @@
       "main": [
         [{ "node": "Telegram – Confirmar Aprobación", "type": "main", "index": 0 }],
         [{ "node": "Telegram – Confirmar Rechazo", "type": "main", "index": 0 }]
+      ]
+    },
+    "Telegram – Confirmar Aprobación": {
+      "main": [
+        [{ "node": "Code – Extraer DIA", "type": "main", "index": 0 }]
+      ]
+    },
+    "Code – Extraer DIA": {
+      "main": [
+        [{ "node": "Supabase – Obtener URLs", "type": "main", "index": 0 }]
+      ]
+    },
+    "Supabase – Obtener URLs": {
+      "main": [
+        [{ "node": "IG – Crear Reel A", "type": "main", "index": 0 }]
+      ]
+    },
+    "IG – Crear Reel A": {
+      "main": [
+        [{ "node": "Esperar 60s – Reel A", "type": "main", "index": 0 }]
+      ]
+    },
+    "Esperar 60s – Reel A": {
+      "main": [
+        [{ "node": "IG – Publicar Reel A", "type": "main", "index": 0 }]
+      ]
+    },
+    "IG – Publicar Reel A": {
+      "main": [
+        [{ "node": "IG – Crear Reel B", "type": "main", "index": 0 }]
+      ]
+    },
+    "IG – Crear Reel B": {
+      "main": [
+        [{ "node": "Esperar 60s – Reel B", "type": "main", "index": 0 }]
+      ]
+    },
+    "Esperar 60s – Reel B": {
+      "main": [
+        [{ "node": "IG – Publicar Reel B", "type": "main", "index": 0 }]
+      ]
+    },
+    "IG – Publicar Reel B": {
+      "main": [
+        [{ "node": "Supabase – Actualizar Publicado", "type": "main", "index": 0 }]
+      ]
+    },
+    "Supabase – Actualizar Publicado": {
+      "main": [
+        [{ "node": "Telegram – Publicado ✅", "type": "main", "index": 0 }]
       ]
     },
     "Telegram – Confirmar Rechazo": {
