@@ -110,6 +110,7 @@
           ]
         },
         "additionalFields": {
+          "parse_mode": "HTML",
           "disable_web_page_preview": false
         }
       },
@@ -466,13 +467,13 @@
     },
     "¿Vídeos OK?": {
       "main": [
-        [{ "node": "Supabase – Guardar URLs", "type": "main", "index": 0 }],
+        [{ "node": "Telegram – Notificar Vídeos", "type": "main", "index": 0 }],
         [{ "node": "Telegram – Notificar Error", "type": "main", "index": 0 }]
       ]
     },
-    "Supabase – Guardar URLs": {
+    "Telegram – Notificar Vídeos": {
       "main": [
-        [{ "node": "Telegram – Notificar Vídeos", "type": "main", "index": 0 }]
+        [{ "node": "Supabase – Guardar URLs", "type": "main", "index": 0 }]
       ]
     },
     "Telegram Trigger – Aprobación": {
