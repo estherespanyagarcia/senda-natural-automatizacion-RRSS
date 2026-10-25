@@ -71,51 +71,18 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $vars.TELEGRAM_CHAT_ID }}",
-        "text": "=🎬 <b>4 vídeos listos — {{ $json.body.tema }}</b>\n\n📱 <b>IG Reel A</b>\n<a href=\"{{ $json.body.ig1_url }}\">Ver en ElevenLabs ↗</a>\n\n📱 <b>IG Reel B</b>\n<a href=\"{{ $json.body.ig2_url }}\">Ver en ElevenLabs ↗</a>\n\n🎵 <b>TikTok A</b>\n<a href=\"{{ $json.body.tiktok1_url }}\">Ver en ElevenLabs ↗</a>\n\n🎵 <b>TikTok B</b>\n<a href=\"{{ $json.body.tiktok2_url }}\">Ver en ElevenLabs ↗</a>\n\n¿Los apruebas para publicar?",
-        "parseMode": "HTML",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "✅ Publicar hoy",
-                    "callbackData": "={{ 'approve_' + $json.body.dia }}"
-                  },
-                  {
-                    "text": "🔄 Regenerar",
-                    "callbackData": "={{ 'regenerate_' + $json.body.dia }}"
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "❌ Descartar",
-                    "callbackData": "={{ 'reject_' + $json.body.dia }}"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {}
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{ $vars.TELEGRAM_BOT_TOKEN }}/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $vars.TELEGRAM_CHAT_ID }},\n  \"text\": \"🎬 <b>4 vídeos listos — {{ $json.body.tema }}</b>\\n\\n📱 <b>IG Reel A</b>\\n<a href=\\\"{{ $json.body.ig1_url }}\\\">Ver en ElevenLabs ↗</a>\\n\\n📱 <b>IG Reel B</b>\\n<a href=\\\"{{ $json.body.ig2_url }}\\\">Ver en ElevenLabs ↗</a>\\n\\n🎵 <b>TikTok A</b>\\n<a href=\\\"{{ $json.body.tiktok1_url }}\\\">Ver en ElevenLabs ↗</a>\\n\\n🎵 <b>TikTok B</b>\\n<a href=\\\"{{ $json.body.tiktok2_url }}\\\">Ver en ElevenLabs ↗</a>\\n\\n¿Los apruebas para publicar?\",\n  \"parse_mode\": \"HTML\",\n  \"reply_markup\": {\n    \"inline_keyboard\": [\n      [\n        {\"text\": \"✅ Publicar hoy\", \"callback_data\": \"approve_{{ $json.body.dia }}\"},\n        {\"text\": \"🔄 Regenerar\", \"callback_data\": \"regenerate_{{ $json.body.dia }}\"}\n      ],\n      [\n        {\"text\": \"❌ Descartar\", \"callback_data\": \"reject_{{ $json.body.dia }}\"}\n      ]\n    ]\n  }\n}",
+        "options": {}
       },
       "id": "f1a2b3c4-0003-4000-a003-000000000003",
       "name": "Telegram – Notificar Vídeos",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [900, 200],
-      "credentials": {
-        "telegramApi": {
-          "id": "TELEGRAM_CREDENTIAL_ID",
-          "name": "Senda Natural Telegram"
-        }
-      }
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 200]
     },
     {
       "parameters": {
