@@ -103,6 +103,63 @@ Cuando los 4 vídeos están listos, Esther recibe en Telegram:
 
 ---
 
+## Workflow 2: Auto Subtítulos (`senda-natural-subtitulos.json`)
+
+Reemplaza el paso manual de CapCut. Recibe vídeo (Higgsfield) + audio (ElevenLabs) y devuelve un vídeo renderizado con subtítulos en tipografía Senda Natural.
+
+### Estilo de subtítulos
+| Parámetro | Valor |
+|---|---|
+| Fuente | DM Sans 500 (Google Fonts) |
+| Color texto | `#FAF6F0` (crema) |
+| Fondo | `#0E0D0A` al 70% opacidad, border-radius 12px |
+| Posición | Centro inferior, 10% desde el borde |
+| Palabras/línea | 4 máximo |
+| Animación | Fade in/out |
+
+### Webhook entrada
+`POST https://senda-natural.app.n8n.cloud/webhook/senda-natural-subtitulos`
+
+```json
+{
+  "dia": 8,
+  "tema": "Piel grasa deshidratada",
+  "ig1_video":     "https://... (Higgsfield)",
+  "ig2_video":     "https://...",
+  "tiktok1_video": "https://...",
+  "tiktok2_video": "https://...",
+  "ig1_audio":     "https://... (ElevenLabs voz Esther)",
+  "ig2_audio":     "https://...",
+  "tiktok1_audio": "https://...",
+  "tiktok2_audio": "https://..."
+}
+```
+
+### Qué hace internamente
+1. Envía 4 renders a Shotstack (vídeo + audio + subtítulos automáticos)
+2. Espera 150s (los renders tardan ~1-2 min)
+3. Verifica estado — si no listos, espera 90s más
+4. Llama a `/senda-natural-videos` con los vídeos subtitulados
+5. El pipeline de aprobación Telegram + publicación continúa como siempre
+
+### Variables n8n adicionales
+| Variable n8n | Descripción |
+|---|---|
+| `SHOTSTACK_API_KEY` | API key de [shotstack.io](https://app.shotstack.io) |
+
+**Stage vs Producción**: El workflow usa la URL stage de Shotstack (gratis, 25 renders/mes).
+Para producción, cambiar en ambos Code nodes:
+```
+https://api.shotstack.io/stage/render  →  https://api.shotstack.io/v1/render
+```
+
+### Importar en n8n
+1. n8n → Workflows → Import from file → `senda-natural-subtitulos.json`
+2. Añadir `SHOTSTACK_API_KEY` en Variables de n8n
+3. Activar workflow
+
+---
+
 ## Tiempos estimados por ejecución
 - TTS + imagen (paralelo): ~2 min
 - Animación a vídeo × 4 vídeos × 3 clips: ~8 min
