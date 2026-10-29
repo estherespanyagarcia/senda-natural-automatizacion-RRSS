@@ -7,7 +7,16 @@ Memoria del proyecto. Aplica a todo el contenido de RRSS (carruseles, reels, sto
 - NUNCA usar nombres oficiales de producto en copy publico (captions, slides, `tema`, `carousel_tema`). Usar descripcion generica ("tu crema ideal", "la crema ligera"). El nombre oficial solo en `notas` (uso interno).
 - NUNCA testimonios inventados (nombre + edad + frase). Sin testimonio real y autorizado, reformular como criterio o necesidad sin atribucion. Ejemplo valido: "Lo que casi todas buscamos: una crema que no pese y que hidrate de verdad."
 - Firma siempre "Senda Natural". Nunca el nombre personal de Esther.
-- CTAs de RRSS: solo engagement (seguir, guardar, compartir). Nunca checkout ni venta automatica.
+- CTAs segun el documento de cada dia: A = Conversion (reels: diagnostico en app.sendanatural.lat), B = Engagement (carruseles: comentarios/guardados/shares), C = Follow (stories: seguir + DM automatico que lleva a la app). Nunca checkout ni venta automatica.
+- Nunca la palabra "rutina" ni lenguaje de red de ventas. Cada escena lleva etiqueta de veracidad (real / compuesta / ilustrativa); una escena ilustrativa nunca se presenta como testimonio.
+
+## FUENTE DE VERDAD DE LOS GUIONES (leer antes de tocar contenido)
+- Google Drive, carpeta "OFERTAS IRRESISTIBLES · Premisa Emocional" (id 1gdFGwK-gr7Dxz0-tpbHJTT-28aSFeBiT), con las instrucciones "premisa emocional" y los avatares.
+- Guiones: carpeta "Guiones · Nueva Premisa Emocional" (id 1e2mREy4X0NewguInNay79mbWDLvJN3qz): un documento por dia ("Dia 0N · Avatar · Formato · Nueva Premisa") y "Guiones Semana 1".
+- NO usar `Guiones_365_SendaNatural.xlsx`: es el plan antiguo y no coincide.
+- Estructura de cada documento: Avatar, Grupo, Problema, Pilar, Tipo CTA, Producto, Presentadora, Formato; secciones del guion, CAPTION y NOTAS DE PRODUCCION/DISENO.
+- Carrusel segun el documento: 6 slides, 1:1 (1080x1080), Cormorant Garamond titulos + DM Sans cuerpo, fondo #0E0D0A, texto #D4AF7F, firma "Tu asesora de piel · Senda Natural".
+- Los guiones de `content_calendar` de los dias 1, 3, 5 y 6 NO corresponden a la Nueva Premisa (son anteriores); los dias 2, 4 y 7 (reels) si coinciden.
 - Avatares Light/Medium/Rich son solo internos.
 - Claims de producto sujetos a las GC Rules (por ejemplo "sin silicones" hay que confirmarlo antes de publicar).
 
