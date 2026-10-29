@@ -56,3 +56,17 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 - Reels 2, 4, 7 con video; reels 9, 11 y 14: solo guion + caption (`status='pendiente'`), falta producir el video.
 - Stories en Canva: copiar un diseno de stories existente (p. ej. `DAHZY88BKO8`, paginas 2-4) y reemplazar texto; exportar solo esas paginas. El sticker de encuesta/SEGUIR se anade nativo en Instagram.
 - Los restos de plan antiguo (caption con porcentajes, slides viejas) se limpian al reescribir cada dia.
+
+## Reels: proceso validado con el dia 2 (publicado 2026-10-29)
+- El video de Higgsfield sale SIN audio y dura 15 s. Un reel de ~45 s se monta por ESCENAS que sigan el guion (gancho, metafora, pivote, herida, cierre) y la voz en off de ElevenLabs encima. Nunca repetir el mismo clip en bucle ni usar escenas que no encajen con lo que dice la voz.
+- Seedance 2.5 (Higgsfield) genera clips de hasta 30 s; sin audio (`generate_audio:false`) para escenas, con `start_image` del Element "La Investigadora" (1ca4f2da-725e-48a2-b996-fa83898574cb) para los planos de ella. La referencia de audio de Seedance admite 2-30 s.
+- Voz: ElevenLabs `eleven_multilingual_v2`, voice_id `iuCOanGou5VLdjsVzuSj`, flow `weime5DY6BKajeZdTu6M`. Escribir en el guion de voz las siglas y numeros como se pronuncian ("ultravioleta", no "UV"; "veinticinco", no "25") y el CTA en imperativo ("Guarda este vídeo y compártelo"). Despues transcribir el video con `video_analyze` de Magnific y comprobar titubeos, siglas y final no cortado ANTES de proponerlo.
+- Montaje gratis con Magnific: subir clips con `creations_request_upload` + funcion edge `relay` + `creations_finalize_upload`; `video_cut`, `video_concatenate`, `video_audio_mix` (muteVideo:true). Magnific NO acepta URLs de CloudFront: copiar antes a Supabase bucket `reels` con la funcion `copyvid`. Despues importar a Higgsfield con `media_import_url` y guardar la URL `https://d2ol7oe51mr4n9.cloudfront.net/user_3C5cQxE1oi1XbZDKdjou8cwMYeD/<media_id>.mp4` en `video_url`.
+- Guardar en `content_calendar` solo tras el visto bueno de la usuaria. Actualizar tambien guion y caption para que coincidan con la locucion.
+- El lipsync de Magnific gasta creditos y se agotaron; usar solo herramientas gratuitas.
+
+## n8n "Diaria-IG": lecciones
+- Publicacion programada: nodo "Schedule – Publicación 18:00 UTC". Solo coge lo que este en `aprobado` con `fecha_publicacion` de HOY; aprobar ANTES de las 18:00 UTC o el dia se queda sin salir (al dia siguiente busca la fecha siguiente).
+- Los nodos "IG – Crear Reel" e "IG – Publicar Reel" deben llevar `access_token` = `{{ $json._token.replace(/^Bearer\s*/i, '') }}` (Publicar Reel: `{{ $('Set – Datos Publicación').item.json._token.replace(/^Bearer\s*/i, '') }}`). Sin eso: error 400 "Cannot parse access token".
+- El caption del reel NUNCA debe usar `{{ $json.tema }}` (es descriptor interno) ni `#RutinaDeRostro` ("rutina" prohibida). Usar el texto limpio de `carousel_caption`. Revisar tambien "IG – Crear Imagen" (dias de foto quote) por la misma plantilla.
+- Si n8n avisa "Workflow was changed by someone else / Autosave failed": hay otra pestaña con el flujo abierto; cerrar todas, recargar y rehacer los cambios guardando con una sola pestaña.
