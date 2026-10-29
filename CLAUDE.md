@@ -49,3 +49,10 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 - Endpoint `https://graph.instagram.com/v21.0/me/...`. En el nodo de publicar, URL `{{ $json.api_base }}/media_publish` y `access_token` sin el prefijo `Bearer`.
 - Los nodos Code de n8n abortan a los 60 s: crear las slides en paralelo con `Promise.all`.
 - Instagram acepta JPEG y PNG, pero el archivo debe ser una imagen real servida por URL publica.
+
+## Estado del calendario (actualizar al avanzar)
+- Dias 1-14: guiones Nueva Premisa con cabecera `DÍA 0N · PERSONAJE · Formato`, tema/caption/notas rellenos en Supabase.
+- Listos con assets en CloudFront: carruseles 1 (publicado), 3, 8, 10; stories 5 y 12 (3 frames 1080x1920 en `carousel_slide_urls`); foto quote 6 y 13 (`imagen_url`).
+- Reels 2, 4, 7 con video; reels 9, 11 y 14: solo guion + caption (`status='pendiente'`), falta producir el video.
+- Stories en Canva: copiar un diseno de stories existente (p. ej. `DAHZY88BKO8`, paginas 2-4) y reemplazar texto; exportar solo esas paginas. El sticker de encuesta/SEGUIR se anade nativo en Instagram.
+- Los restos de plan antiguo (caption con porcentajes, slides viejas) se limpian al reescribir cada dia.
