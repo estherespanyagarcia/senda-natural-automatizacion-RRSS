@@ -18,12 +18,13 @@ Memoria del proyecto. Aplica a todo el contenido de RRSS (carruseles, reels, sto
 - Trabajar sin pedir permiso para crear contenido: el usuario ya delego la creacion. Solo preguntar si la decision es suya (formato, publicar o no).
 - Estructura de cada documento: Avatar, Grupo, Problema, Pilar, Tipo CTA, Producto, Presentadora, Formato; secciones del guion, CAPTION y NOTAS DE PRODUCCION/DISENO.
 - Carrusel segun el documento: 6 slides, 1:1 (1080x1080), Cormorant Garamond titulos + DM Sans cuerpo, fondo #0E0D0A, texto #D4AF7F, firma "Tu asesora de piel · Senda Natural".
-- Los guiones de `content_calendar` de los dias 1, 3, 5 y 6 NO corresponden a la Nueva Premisa (son anteriores); los dias 2, 4 y 7 (reels) si coinciden.
+- Todos los guiones de `content_calendar` empiezan con cabecera numerada `DÍA 0N · PERSONAJE · Formato` (dias 1-14 ya ajustados a la Nueva Premisa). Cada dia nuevo debe seguir ese formato: HOOK/ESCENA/... o STORY/QUOTE segun formato, `tema` = `PERSONAJE · herida: ...`, `notas` con producto interno + veracidad + CTA + viralidad.
+- Semana 2 (avatares): 8 Isabella (carrusel), 9 Valentina (reel), 10 Paula (carrusel), 11 Andrea (reel), 12 Mercedes (stories), 13 Amparo (foto quote), 14 Teresa (reel). Semana 3 en adelante: seguir con los avatares de las carpetas Set Light / Medium / Rich, nunca Bebes y Ninos.
 - Avatares Light/Medium/Rich son solo internos.
 - Claims de producto sujetos a las GC Rules (por ejemplo "sin silicones" hay que confirmarlo antes de publicar).
 
 ## Formato y marca
-- Carrusel y foto quote: 1080x1350 (4:5). Stories: 1080x1920. Reels: 9:16 video. NUNCA 16:9 apaisado (Instagram lo muestra diminuto).
+- Carrusel y foto quote: 1080x1080 (1:1, segun los documentos de Drive). Stories: 1080x1920. Reels: 9:16 video. NUNCA 16:9 apaisado (Instagram lo muestra diminuto).
 - Exportar siempre a JPG (calidad 90).
 - Icono de la hoja en TODAS las piezas: abajo a la izquierda, 80 px, 75 % de opacidad. En la ultima pagina: icono grande a la derecha + firma "Senda Natural". Asset en Canva: `MAHZYEEVm_I` (SVG vectorial servido por la edge function `brand-icon`).
 - Estilo: fondo oscuro #0E0D0A, serif cursiva dorada (#ad844a / #c2985c), cuerpo crema (#d1c0a9).
