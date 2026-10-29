@@ -14,6 +14,8 @@ Memoria del proyecto. Aplica a todo el contenido de RRSS (carruseles, reels, sto
 - Google Drive, carpeta "OFERTAS IRRESISTIBLES · Premisa Emocional" (id 1gdFGwK-gr7Dxz0-tpbHJTT-28aSFeBiT), con las instrucciones "premisa emocional" y los avatares.
 - Guiones: carpeta "Guiones · Nueva Premisa Emocional" (id 1e2mREy4X0NewguInNay79mbWDLvJN3qz): un documento por dia ("Dia 0N · Avatar · Formato · Nueva Premisa") y "Guiones Semana 1".
 - NO usar `Guiones_365_SendaNatural.xlsx`: es el plan antiguo y no coincide.
+- IGNORAR por completo la carpeta de Drive "Bebes y Ninos · Avatares 77-81" (id 17GhRS9hagfJgrKIUYMbsHkig0VqyX_u1): no se usa por el momento. No leerla, no usarla en guiones ni en el calendario.
+- Trabajar sin pedir permiso para crear contenido: el usuario ya delego la creacion. Solo preguntar si la decision es suya (formato, publicar o no).
 - Estructura de cada documento: Avatar, Grupo, Problema, Pilar, Tipo CTA, Producto, Presentadora, Formato; secciones del guion, CAPTION y NOTAS DE PRODUCCION/DISENO.
 - Carrusel segun el documento: 6 slides, 1:1 (1080x1080), Cormorant Garamond titulos + DM Sans cuerpo, fondo #0E0D0A, texto #D4AF7F, firma "Tu asesora de piel · Senda Natural".
 - Los guiones de `content_calendar` de los dias 1, 3, 5 y 6 NO corresponden a la Nueva Premisa (son anteriores); los dias 2, 4 y 7 (reels) si coinciden.
