@@ -32,12 +32,14 @@ Carruseles, stories y fotos:
 1. Exportar de Canva a JPG.
 2. Guardar con la edge function `ingest` (descarga el JPG de Canva y lo sube bien, sin corromper bytes). Se llama desde SQL con `net.http_post` (extension `pg_net`) y la anon key en `Authorization`. Body: `{"dia": N, "urls": [...]}`; opcional `"start": k` para sustituir una sola slide.
 3. Queda en bucket `carousel-images`, ruta `dia{N}/slide-000{i}.jpg`.
-4. En `content_calendar` guardar `carousel_slide_urls` (jsonb) con `https://jrovkkjxvzuzcpexdydy.supabase.co/functions/v1/img/dia{N}/slide-000{i}.jpg`. Foto quote: la misma URL en `imagen_url`.
-5. Rellenar tambien `carousel_tema` (titulo publico sin producto), `carousel_canva_design_id` y `carousel_status = 'listo'`. `status` queda en `listo` para el flujo de aprobacion por Telegram.
+4. IMPORTANTE: Instagram RECHAZA las URLs de Supabase (storage directo y function `img`: error 2207083, aunque el archivo sea un JPEG valido). Solo acepta CloudFront. Por eso, tras `ingest`, importar cada slide a Higgsfield con `media_import_url` (url = `https://jrovkkjxvzuzcpexdydy.supabase.co/storage/v1/object/public/carousel-images/dia{N}/slide-000{i}.jpg`). Devuelve un `media_id`; la URL definitiva es `https://d2ol7oe51mr4n9.cloudfront.net/user_3C5cQxE1oi1XbZDKdjou8cwMYeD/<media_id>.png` (mismo CloudFront que los reels). Verificado en produccion con el dia 1: `via` = cloudfront en las 6 slides.
+5. En `content_calendar` guardar esas URLs de CloudFront, en orden, en `carousel_slide_urls` (jsonb). Foto quote: la URL en `imagen_url`. Supabase queda como copia de seguridad.
+6. Rellenar tambien `carousel_tema` (titulo publico sin producto), `carousel_canva_design_id` y `carousel_status = 'listo'`. `status` queda en `listo` para el flujo de aprobacion por Telegram.
 Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<voice_id>`.
 - Los enlaces de export de Canva caducan en menos de 24 h: NUNCA guardarlos como URL definitiva.
 - NUNCA subir binarios desde un nodo Code de n8n: el Buffer viaja como JSON y el archivo queda corrupto. Para URLs de Canva aun sin guardar, el nodo "Code – Subir Imagenes a Supabase" las envuelve con la function `canva-img` (solo hosts `export-download.canva.com`).
-- La function `img` solo sirve rutas `dia{N}/slide-000{i}.jpg` del bucket.
+- La function `img` solo sirve rutas `dia{N}/slide-000{i}.jpg` del bucket (no usar para Instagram).
+- Caption de carruseles: el nodo "Code – Crear Carrusel IG" lee `carousel_caption` de Supabase por `dia`. `tema` es un descriptor interno y NUNCA se publica.
 
 ## Instagram (workflow n8n "Diaria-IG")
 - Token de Instagram Login (empieza por `IGAA`), variable n8n `INSTAGRAM_TOKEN` = `Bearer IGAA...` (con espacio). Dura 60 dias: renovar antes. Nunca pegarlo duplicado.
