@@ -46,3 +46,10 @@ Reglas de la usuaria. No negociables. Aplican a todo reel o vídeo, cada día.
 ## 6. Publicación (n8n "Diaria-IG")
 - Aprobar antes de las 18:00 UTC (19:00 España en invierno, 20:00 en verano) o no sale ese día.
 - El caption nunca usa `tema` ni hashtags con "rutina".
+
+## 7. Copy (caption) correcto: siempre el del guion hablado
+- El copy de Instagram (`carousel_caption` en `content_calendar`) debe salir del guion que dice la voz del vídeo final: el gancho, la idea central y el CTA tal como se oyen. Nunca un copy antiguo, genérico ni de otro día.
+- Si la voz se ha suavizado o cambiado (p. ej. sin cifras ni plazos), el copy se cambia igual.
+- Estructura: gancho + idea central en frases cortas, CTA en imperativo y firma "Tu asesora de piel · Senda Natural". Sin `tema`, sin hashtags de "rutina", sin "Ringana", sin promesas de resultado.
+- Antes de pasar un reel a `listo` o `aprobado`, comprobar con SQL que `carousel_caption` no está vacío y coincide con la locución. Sin copy correcto, no se aprueba.
+- Si un reel ya publicado sale con copy erróneo, avisar a la usuaria y darle el texto correcto para editarlo en Instagram.
