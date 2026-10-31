@@ -59,3 +59,10 @@ Reglas de la usuaria. No negociables. Aplican a todo reel o vídeo, cada día.
 - Antes de aprobar un reel: (1) comparar el copy de `carousel_caption` con la locución, (2) pedir a la usuaria captura del nodo o confirmar la expresión si no está verificada, (3) tras publicar, comprobar el copy real del post.
 - Si sale mal: NO eliminar el reel; se corrige con "Editar" en Instagram y se arregla el nodo antes de la siguiente publicación.
 - El JSON `n8n/senda-natural-produccion.json` del repositorio está desactualizado respecto al workflow real; no fiarse de él para esto.
+
+## 9. La Investigadora no tiene que salir siempre
+- No todos los reels llevan a La Investigadora en pantalla. Se pueden hacer reels enteros sin ella, solo con su voz en off diciendo el guion (regla 3 sigue vigente: la voz es siempre suya).
+- Alternar entre reels con ella y reels sin ella para dar variedad al perfil; no repetir el mismo formato dos días seguidos.
+- En los reels sin ella, subir el misterio y la atmósfera: planos cerrados de objetos y manos, sombras, niebla, luz dirigida, texturas, contraluces, movimientos de cámara lentos, detalles simbólicos que ilustren la metáfora del guion. Mantener el look cinematográfico de serie de Netflix (regla 0) y las imágenes alineadas con lo que dice la voz (regla 2).
+- Sin ella no hay sincronía labial: toda la narración va como voz en off sobre las escenas (`generate_audio:false` + `video_audio_mix`), con subtítulos llamativos (regla 4) y copy correcto (regla 7).
+- Cuidar manos y cuerpos si aparecen personas: anatomía correcta, sin deformaciones.
