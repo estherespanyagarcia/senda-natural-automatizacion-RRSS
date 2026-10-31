@@ -32,7 +32,7 @@ Reglas de la usuaria. No negociables. Aplican a todo reel o vídeo, cada día.
 ## 4. Subtítulos llamativos (no planos)
 - Todo reel lleva subtítulos grabados en el vídeo: palabra a palabra o frase corta, grandes, tipografía gruesa, con contorno o sombra, palabra clave resaltada en dorado #D4AF7F sobre texto crema #FAF6F0, zona segura (no tapar cara ni los botones de Instagram).
 - NO usar subtítulos grises ni blancos simples de una sola línea.
-- Si no hay herramienta para grabarlos, decirlo claramente a la usuaria antes de dar el vídeo por terminado y no pasarlo a `aprobado` sin ellos.
+- La generación de subtítulos es un paso OBLIGATORIO de todo reel y se hace con OpusClip (sección 10): se aplican a la versión final montada, con voz, antes de importar a CloudFront y de pedir el visto bueno. Nunca pasar un reel a `aprobado` sin ellos. Si OpusClip fallara, avisar a la usuaria y usar CapCut como plan B.
 
 ## 5. Proceso (resumen)
 1. Dividir guion en tramos y decidir cuáles son "ella habla" y cuáles "ilustración + voz en off".
