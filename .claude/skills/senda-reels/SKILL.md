@@ -67,8 +67,9 @@ Reglas de la usuaria. No negociables. Aplican a todo reel o vídeo, cada día.
 - Sin ella no hay sincronía labial: toda la narración va como voz en off sobre las escenas (`generate_audio:false` + `video_audio_mix`), con subtítulos llamativos (regla 4) y copy correcto (regla 7).
 - Cuidar manos y cuerpos si aparecen personas: anatomía correcta, sin deformaciones.
 
-## 10. Subtítulos con CapCut (vía acordada)
-- Los subtítulos los graba la usuaria en CapCut; yo no tengo herramienta para grabarlos.
-- Flujo: (1) entrego el reel sin subtítulos con enlace de descarga y el texto exacto de la locución; (2) ella lo abre en CapCut, subtitula con el estilo del punto 4 y exporta; (3) lo sube con el widget de subida de Higgsfield (`media_upload_widget`); (4) con el media_id obtengo la URL de CloudFront, la guardo en `video_url` y compruebo copy (regla 7); (5) NO pasar a `aprobado` hasta que ella confirme el vídeo con subtítulos.
-- Estilo CapCut: auto-subtítulos en español, 1-3 palabras por pantalla, letra gruesa grande, crema #FAF6F0 con contorno oscuro #0E0D0A y sombra, palabra clave en dorado #D4AF7F, animación palabra a palabra (pop/karaoke), zona segura (centro-inferior, sin tapar cara ni botones). Guardar el estilo como preset para reutilizarlo. Exportar 1080x1920 con audio.
-- Revisar la transcripción automática: nombres y tecnicismos (p. ej. "ultravioleta") suelen fallar.
+## 10. Subtítulos con OpusClip (conector "AI Producer by OpusClip", validado el 31-oct)
+- Los subtítulos los grabo yo con OpusClip; la usuaria ya lo conectó. CapCut queda solo como plan B manual.
+- Dominios que deben estar permitidos en la red del entorno: `producer.opus.pro`, `*.opuslab.ai`, `storage.googleapis.com`, `upload.higgsfield.ai`, `ak-data.magnific.com`.
+- Flujo: (1) `start_project_from_attachment` con la URL de CloudFront del reel; (2) `get_task` hasta `done`; (3) `build_captions` con `accent:#D4AF7F`, `font:heavy-hitter`, `position:68`, `placement:fixed`, `user_request:"subtitulos llamativos, no planos"`; (4) añadir el `host_div` devuelto al `index.html` del proyecto (quitar el `<link>` a `styles/slots.css`, que no existe) y `commit_workspace` con `expected_files` (index.html con `content` + los ficheros devueltos con sha256), `authoring:false` o `finish_project`; (5) `start_export`, `get_task`, `get_export_url`; (6) descargar con curl usando cookie jar (`-L -c jar -b jar`; el enlace es de un solo uso y redirige a `opus-lab.cdn.opuslab.ai`); (7) subir a Higgsfield (`media_upload` + PUT + `media_confirm`) para obtener la URL de CloudFront y a Magnific para `video_analyze`; (8) guardar en `video_url` y `carousel_caption`, y esperar el visto bueno de la usuaria antes de `aprobado`.
+- Resultado aceptado por la usuaria ("ha salido perfecto"): texto blanco semibold con palabra clave más grande en beige dorado, a la altura del torso, sin tapar boca ni ojos.
+- No pasar a `aprobado` un reel sin subtítulos.
