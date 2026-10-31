@@ -7,9 +7,15 @@ description: Reglas obligatorias para crear reels o vídeos de Senda Natural con
 
 Reglas de la usuaria. No negociables. Aplican a todo reel o vídeo, cada día.
 
+## 0. Look cinematográfico, como una serie de Netflix (obligatorio)
+- Todo plano debe verse de cine: lentes anamórficas, poca profundidad de campo, iluminación de contraste suave y dirigida, grading cálido con negros ricos, grano de película sutil, cámara con movimiento motivado (dolly, push-in, travelling, handheld suave). Nunca aspecto de vídeo corporativo, stock ni "IA plana".
+- Incluir siempre en los prompts: "cinematic, Netflix series look, anamorphic lens, shallow depth of field, film grain, rich color grading, motivated camera movement".
+- Escenarios con carácter (no laboratorio genérico blanco): luz de ventana, texturas, atrezo con sentido.
+
 ## 1. La Investigadora siempre en movimiento
 - Nunca fija, nunca solo mirando a cámara todo el rato. Variar plano y acción: de pie, caminando, gesticulando con las manos, señalando, mirando un objeto, acercándose a cámara, cambiando de plano medio a primer plano.
 - Un mismo plano de ella no dura más de unos 5-6 s seguidos; alternar con las escenas del punto 2.
+- NUNCA va de blanco ni con bata de laboratorio. Tiene su outfit propio, el del Element/imagen de referencia: no describirlo en el prompt de otra forma, escribir "keep the exact outfit, hair and face of the start image; no white lab coat".
 - Mantener su identidad con el Element de Higgsfield "La Investigadora" (1ca4f2da-725e-48a2-b996-fa83898574cb) y el Soul 411e8819-11a2-447f-b8dc-305e70b7c679.
 
 ## 2. Alternar lo que dice con lo que se ve, con la lógica del guion
