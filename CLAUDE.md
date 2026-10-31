@@ -70,3 +70,6 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 - Los nodos "IG – Crear Reel" e "IG – Publicar Reel" deben llevar `access_token` = `{{ $json._token.replace(/^Bearer\s*/i, '') }}` (Publicar Reel: `{{ $('Set – Datos Publicación').item.json._token.replace(/^Bearer\s*/i, '') }}`). Sin eso: error 400 "Cannot parse access token".
 - El caption del reel NUNCA debe usar `{{ $json.tema }}` (es descriptor interno) ni `#RutinaDeRostro` ("rutina" prohibida). Usar el texto limpio de `carousel_caption`. Revisar tambien "IG – Crear Imagen" (dias de foto quote) por la misma plantilla.
 - Si n8n avisa "Workflow was changed by someone else / Autosave failed": hay otra pestaña con el flujo abierto; cerrar todas, recargar y rehacer los cambios guardando con una sola pestaña.
+
+## Skill obligatoria para reels/vídeos
+Antes de producir o revisar cualquier reel o vídeo, leer `.claude/skills/senda-reels/SKILL.md` (La Investigadora en movimiento, escenas que ilustran el guion, voz siempre suya, subtítulos llamativos).
