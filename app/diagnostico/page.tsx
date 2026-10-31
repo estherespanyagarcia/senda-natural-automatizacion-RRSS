@@ -174,6 +174,12 @@ export default function DiagnosticoPage() {
       });
 
       const data = await res.json();
+
+      if (data.lead_id) {
+        window.location.href = `https://app.sendanatural.net/senda?lid=${data.lead_id}`;
+        return;
+      }
+
       setResult(data);
     } catch (error) {
       console.error(error);

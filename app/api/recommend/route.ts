@@ -187,7 +187,7 @@ export async function POST(req: Request) {
       );
     }
 
-    return NextResponse.json({ guide });
+    return NextResponse.json({ guide, lead_id: lead?.id ?? null });
   } catch (error) {
     return NextResponse.json(
       {

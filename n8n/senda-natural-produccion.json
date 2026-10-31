@@ -40,53 +40,63 @@
     },
     {
       "parameters": {
-        "method": "PATCH",
-        "url": "=https://jrovkkjxvzuzcpexdydy.supabase.co/rest/v1/content_calendar?dia=eq.{{ $json.body.dia }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            { "name": "apikey", "value": "={{ $vars.SUPABASE_ANON_KEY }}" },
-            { "name": "Authorization", "value": "=Bearer {{ $vars.SUPABASE_ANON_KEY }}" },
-            { "name": "Prefer", "value": "return=minimal" }
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "=🎬 <b>4 vídeos listos — {{ $json.body.tema }}</b>\n\n📱 <b>IG Reel A</b>\n<a href=\"{{ $json.body.ig1_url }}\">Ver en ElevenLabs ↗</a>\n\n📱 <b>IG Reel B</b>\n<a href=\"{{ $json.body.ig2_url }}\">Ver en ElevenLabs ↗</a>\n\n🎵 <b>TikTok A</b>\n<a href=\"{{ $json.body.tiktok1_url }}\">Ver en ElevenLabs ↗</a>\n\n🎵 <b>TikTok B</b>\n<a href=\"{{ $json.body.tiktok2_url }}\">Ver en ElevenLabs ↗</a>\n\n¿Los apruebas para publicar?",
+        "parseMode": "HTML",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Publicar hoy",
+                    "additionalFields": {
+                      "callbackData": "={{ 'approve_' + $json.body.dia }}"
+                    }
+                  },
+                  {
+                    "text": "🔄 Regenerar",
+                    "additionalFields": {
+                      "callbackData": "={{ 'regenerate_' + $json.body.dia }}"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "❌ Descartar",
+                    "additionalFields": {
+                      "callbackData": "={{ 'reject_' + $json.body.dia }}"
+                    }
+                  }
+                ]
+              }
+            }
           ]
         },
-        "sendBody": true,
-        "contentType": "json",
-        "bodyParameters": {
-          "parameters": [
-            { "name": "elevenlabs_ig1_url", "value": "={{ $json.body.ig1_url }}" },
-            { "name": "elevenlabs_ig2_url", "value": "={{ $json.body.ig2_url }}" },
-            { "name": "elevenlabs_tiktok1_url", "value": "={{ $json.body.tiktok1_url }}" },
-            { "name": "elevenlabs_tiktok2_url", "value": "={{ $json.body.tiktok2_url }}" },
-            { "name": "status", "value": "listo" }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f1a2b3c4-0020-4000-a020-000000000020",
-      "name": "Supabase – Guardar URLs",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [680, 200]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "=https://api.telegram.org/bot{{ $vars.TELEGRAM_BOT_TOKEN }}/sendMessage",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"chat_id\": {{ $vars.TELEGRAM_CHAT_ID }},\n  \"text\": \"🎬 <b>4 vídeos listos — {{ $json.body.tema }}</b>\\n\\n📱 <b>IG Reel A</b>\\n<a href=\\\"{{ $json.body.ig1_url }}\\\">Ver en ElevenLabs ↗</a>\\n\\n📱 <b>IG Reel B</b>\\n<a href=\\\"{{ $json.body.ig2_url }}\\\">Ver en ElevenLabs ↗</a>\\n\\n🎵 <b>TikTok A</b>\\n<a href=\\\"{{ $json.body.tiktok1_url }}\\\">Ver en ElevenLabs ↗</a>\\n\\n🎵 <b>TikTok B</b>\\n<a href=\\\"{{ $json.body.tiktok2_url }}\\\">Ver en ElevenLabs ↗</a>\\n\\n¿Los apruebas para publicar?\",\n  \"parse_mode\": \"HTML\",\n  \"reply_markup\": {\n    \"inline_keyboard\": [\n      [\n        {\"text\": \"✅ Publicar hoy\", \"callback_data\": \"approve_{{ $json.body.dia }}\"},\n        {\"text\": \"🔄 Regenerar\", \"callback_data\": \"regenerate_{{ $json.body.dia }}\"}\n      ],\n      [\n        {\"text\": \"❌ Descartar\", \"callback_data\": \"reject_{{ $json.body.dia }}\"}\n      ]\n    ]\n  }\n}",
-        "options": {}
+        "additionalFields": {
+          "disable_web_page_preview": false
+        }
       },
       "id": "f1a2b3c4-0003-4000-a003-000000000003",
       "name": "Telegram – Notificar Vídeos",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [900, 200]
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [680, 200],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CREDENTIAL_ID",
+          "name": "Senda Natural Telegram"
+        }
+      }
     },
     {
       "parameters": {
-        "chatId": "={{ $vars.TELEGRAM_CHAT_ID }}",
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
         "text": "⚠️ <b>Error en pipeline de vídeos</b>\n\nNo se recibieron URLs válidas. Revisa los logs de la rutina de Claude Code.",
         "parseMode": "HTML",
         "additionalFields": {}
@@ -145,30 +155,8 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
-          "conditions": [
-            {
-              "id": "check-carousel",
-              "leftValue": "={{ $json.callback_query.data }}",
-              "rightValue": "approve_carousel_",
-              "operator": { "type": "string", "operation": "startsWith" }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "f1a2b3c4-0040-4000-a040-000000000040",
-      "name": "¿Es Carrusel?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [680, 700]
-    },
-    {
-      "parameters": {
         "chatId": "={{ $json.callback_query.from.id }}",
-        "text": "⏳ <b>Aprobado. Publicando en Instagram ahora...</b>\n\nEsto tardará ~2 minutos. Te aviso cuando termine.",
+        "text": "✅ <b>Vídeos aprobados.</b>\n\nListo para publicar. Recuerda descargar y subir a cada plataforma desde los enlaces de ElevenLabs.",
         "parseMode": "HTML",
         "additionalFields": {}
       },
@@ -176,214 +164,7 @@
       "name": "Telegram – Confirmar Aprobación",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [900, 580],
-      "credentials": {
-        "telegramApi": {
-          "id": "TELEGRAM_CREDENTIAL_ID",
-          "name": "Senda Natural Telegram"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsCode": "const triggerData = $('Telegram Trigger – Aprobación').item.json;\nconst callbackData = triggerData.callback_query.data;\nconst dia = callbackData.replace('approve_', '');\nreturn [{ json: { dia } }];"
-      },
-      "id": "f1a2b3c4-0021-4000-a021-000000000021",
-      "name": "Code – Extraer DIA",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [1120, 580]
-    },
-    {
-      "parameters": {
-        "method": "GET",
-        "url": "=https://jrovkkjxvzuzcpexdydy.supabase.co/rest/v1/content_calendar?dia=eq.{{ $json.dia }}&select=elevenlabs_ig1_url,elevenlabs_ig2_url,tema,guion",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            { "name": "apikey", "value": "={{ $vars.SUPABASE_ANON_KEY }}" },
-            { "name": "Authorization", "value": "=Bearer {{ $vars.SUPABASE_ANON_KEY }}" }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f1a2b3c4-0022-4000-a022-000000000022",
-      "name": "Supabase – Obtener URLs",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [1340, 580]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://graph.instagram.com/v21.0/28840447828990358/media",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            { "name": "Authorization", "value": "={{ $vars.INSTAGRAM_TOKEN }}" }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "json",
-        "bodyParameters": {
-          "parameters": [
-            { "name": "media_type", "value": "REELS" },
-            { "name": "video_url", "value": "={{ $json.elevenlabs_ig1_url }}" },
-            { "name": "caption", "value": "={{ ($json.guion || $json.tema) + '\\n\\n🌿 Haz tu diagnóstico de piel gratuito en app.sendanatural.lat' }}" },
-            { "name": "share_to_feed", "value": "true" }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f1a2b3c4-0023-4000-a023-000000000023",
-      "name": "IG – Crear Reel A",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [1560, 580]
-    },
-    {
-      "parameters": {
-        "unit": "seconds",
-        "amount": 60,
-        "resume": "timeInterval"
-      },
-      "id": "f1a2b3c4-0024-4000-a024-000000000024",
-      "name": "Esperar 60s – Reel A",
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [1780, 580],
-      "webhookId": "wait-reel-a"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://graph.instagram.com/v21.0/28840447828990358/media_publish",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            { "name": "Authorization", "value": "={{ $vars.INSTAGRAM_TOKEN }}" }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "json",
-        "bodyParameters": {
-          "parameters": [
-            { "name": "creation_id", "value": "={{ $json.id }}" }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f1a2b3c4-0025-4000-a025-000000000025",
-      "name": "IG – Publicar Reel A",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [2000, 580]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://graph.instagram.com/v21.0/28840447828990358/media",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            { "name": "Authorization", "value": "={{ $vars.INSTAGRAM_TOKEN }}" }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "json",
-        "bodyParameters": {
-          "parameters": [
-            { "name": "media_type", "value": "REELS" },
-            { "name": "video_url", "value": "={{ $('Supabase – Obtener URLs').item.json.elevenlabs_ig2_url }}" },
-            { "name": "caption", "value": "={{ ($('Supabase – Obtener URLs').item.json.guion || $('Supabase – Obtener URLs').item.json.tema) + '\\n\\n🌿 Haz tu diagnóstico de piel gratuito en app.sendanatural.lat' }}" },
-            { "name": "share_to_feed", "value": "true" }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f1a2b3c4-0026-4000-a026-000000000026",
-      "name": "IG – Crear Reel B",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [2220, 580]
-    },
-    {
-      "parameters": {
-        "unit": "seconds",
-        "amount": 60,
-        "resume": "timeInterval"
-      },
-      "id": "f1a2b3c4-0027-4000-a027-000000000027",
-      "name": "Esperar 60s – Reel B",
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [2440, 580],
-      "webhookId": "wait-reel-b"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://graph.instagram.com/v21.0/28840447828990358/media_publish",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            { "name": "Authorization", "value": "={{ $vars.INSTAGRAM_TOKEN }}" }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "json",
-        "bodyParameters": {
-          "parameters": [
-            { "name": "creation_id", "value": "={{ $json.id }}" }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f1a2b3c4-0028-4000-a028-000000000028",
-      "name": "IG – Publicar Reel B",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [2660, 580]
-    },
-    {
-      "parameters": {
-        "method": "PATCH",
-        "url": "=https://jrovkkjxvzuzcpexdydy.supabase.co/rest/v1/content_calendar?dia=eq.{{ $('Code – Extraer DIA').item.json.dia }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            { "name": "apikey", "value": "={{ $vars.SUPABASE_ANON_KEY }}" },
-            { "name": "Authorization", "value": "=Bearer {{ $vars.SUPABASE_ANON_KEY }}" },
-            { "name": "Prefer", "value": "return=minimal" }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "json",
-        "bodyParameters": {
-          "parameters": [
-            { "name": "status", "value": "publicado" }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f1a2b3c4-0029-4000-a029-000000000029",
-      "name": "Supabase – Actualizar Publicado",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [2880, 580]
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $vars.TELEGRAM_CHAT_ID }}",
-        "text": "=✅ <b>¡Publicado en Instagram!</b>\n\n📱 Reel A y Reel B publicados en <b>@senda_natural_</b>\n\nEstado actualizado en el calendario de contenido.",
-        "parseMode": "HTML",
-        "additionalFields": {}
-      },
-      "id": "f1a2b3c4-0030-4000-a030-000000000030",
-      "name": "Telegram – Publicado ✅",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [3100, 580],
+      "position": [680, 600],
       "credentials": {
         "telegramApi": {
           "id": "TELEGRAM_CREDENTIAL_ID",
@@ -402,7 +183,7 @@
       "name": "Telegram – Confirmar Rechazo",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [680, 860],
+      "position": [680, 820],
       "credentials": {
         "telegramApi": {
           "id": "TELEGRAM_CREDENTIAL_ID",
@@ -413,289 +194,30 @@
     {
       "parameters": {
         "method": "PATCH",
-        "url": "={{ 'https://jrovkkjxvzuzcpexdydy.supabase.co/rest/v1/content_calendar?dia=eq.' + $json.callback_query.data.replace('reject_', '').replace('regenerate_', '') }}",
+        "url": "={{ $env.VERCEL_APP_URL + '/api/automation/save-results' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "apikey", "value": "={{ $vars.SUPABASE_ANON_KEY }}" },
-            { "name": "Authorization", "value": "=Bearer {{ $vars.SUPABASE_ANON_KEY }}" },
-            { "name": "Prefer", "value": "return=minimal" }
+            { "name": "x-cron-secret", "value": "={{ $env.CRON_SECRET }}" },
+            { "name": "Content-Type", "value": "application/json" }
           ]
         },
         "sendBody": true,
-        "contentType": "json",
         "bodyParameters": {
           "parameters": [
-            { "name": "status", "value": "pendiente" }
+            { "name": "action", "value": "reject" },
+            { "name": "dia", "value": "={{ $json.callback_query.data.replace('reject_', '').replace('regenerate_', '') }}" }
           ]
         },
         "options": {}
       },
       "id": "f1a2b3c4-0014-4000-a014-000000000014",
-      "name": "Supabase – Marcar Pendiente",
+      "name": "HTTP – Marcar como pendiente",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [900, 860]
-    },
-
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "senda-natural-carrusel",
-        "responseMode": "onReceived",
-        "responseData": "allEntries",
-        "options": {}
-      },
-      "id": "f1a2b3c4-0050-4000-a050-000000000050",
-      "name": "Webhook – Carrusel Listo",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 1.1,
-      "position": [240, 1100],
-      "webhookId": "senda-natural-carrusel"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
-          "conditions": [
-            {
-              "id": "check-slides",
-              "leftValue": "={{ $json.body.carousel_slide_urls }}",
-              "rightValue": "",
-              "operator": { "type": "string", "operation": "notEmpty" }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "f1a2b3c4-0051-4000-a051-000000000051",
-      "name": "¿Slides OK?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [460, 1100]
-    },
-    {
-      "parameters": {
-        "method": "PATCH",
-        "url": "=https://jrovkkjxvzuzcpexdydy.supabase.co/rest/v1/content_calendar?dia=eq.{{ $json.body.dia }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            { "name": "apikey", "value": "={{ $vars.SUPABASE_ANON_KEY }}" },
-            { "name": "Authorization", "value": "=Bearer {{ $vars.SUPABASE_ANON_KEY }}" },
-            { "name": "Content-Type", "value": "application/json" },
-            { "name": "Prefer", "value": "return=minimal" }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"carousel_slide_urls\": {{ JSON.stringify($json.body.carousel_slide_urls) }},\n  \"carousel_caption\": {{ JSON.stringify($json.body.carousel_caption) }},\n  \"carousel_tema\": {{ JSON.stringify($json.body.carousel_tema) }},\n  \"carousel_status\": \"listo\"\n}",
-        "options": {}
-      },
-      "id": "f1a2b3c4-0052-4000-a052-000000000052",
-      "name": "Supabase – Guardar Carrusel",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [680, 1000]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "=https://api.telegram.org/bot{{ $vars.TELEGRAM_BOT_TOKEN }}/sendMessage",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"chat_id\": {{ $vars.TELEGRAM_CHAT_ID }},\n  \"text\": \"🖼️ <b>Carrusel listo — {{ $json.body.carousel_tema }}</b>\\n\\n<b>{{ $json.body.carousel_slide_urls.length }} slides</b> generados con la paleta Senda Natural.\\n\\nCaption preview:\\n<i>{{ $json.body.carousel_caption.substring(0, 150) }}...</i>\\n\\n¿Lo apruebas para publicar?\",\n  \"parse_mode\": \"HTML\",\n  \"reply_markup\": {\n    \"inline_keyboard\": [\n      [\n        {\"text\": \"✅ Publicar carrusel\", \"callback_data\": \"approve_carousel_{{ $json.body.dia }}\"},\n        {\"text\": \"❌ Descartar\", \"callback_data\": \"reject_carousel_{{ $json.body.dia }}\"}\n      ]\n    ]\n  }\n}",
-        "options": {}
-      },
-      "id": "f1a2b3c4-0053-4000-a053-000000000053",
-      "name": "Telegram – Notificar Carrusel",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [900, 1000]
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $vars.TELEGRAM_CHAT_ID }}",
-        "text": "⚠️ <b>Error en pipeline de carrusel</b>\n\nNo se recibieron URLs de slides. Revisa el proceso de generación.",
-        "parseMode": "HTML",
-        "additionalFields": {}
-      },
-      "id": "f1a2b3c4-0054-4000-a054-000000000054",
-      "name": "Telegram – Error Carrusel",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [680, 1200],
-      "credentials": {
-        "telegramApi": {
-          "id": "TELEGRAM_CREDENTIAL_ID",
-          "name": "Senda Natural Telegram"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger – Aprobación').item.json.callback_query.from.id }}",
-        "text": "⏳ <b>Carrusel aprobado. Publicando en Instagram...</b>\n\nCreando los slides en IG uno a uno. Esto puede tardar ~3 minutos.",
-        "parseMode": "HTML",
-        "additionalFields": {}
-      },
-      "id": "f1a2b3c4-0055-4000-a055-000000000055",
-      "name": "Telegram – Confirmar Carrusel",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [900, 700],
-      "credentials": {
-        "telegramApi": {
-          "id": "TELEGRAM_CREDENTIAL_ID",
-          "name": "Senda Natural Telegram"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsCode": "const triggerData = $('Telegram Trigger – Aprobación').item.json;\nconst callbackData = triggerData.callback_query.data;\nconst dia = callbackData.replace('approve_carousel_', '');\nreturn [{ json: { dia } }];"
-      },
-      "id": "f1a2b3c4-0056-4000-a056-000000000056",
-      "name": "Code – Extraer DIA Carrusel",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [1120, 700]
-    },
-    {
-      "parameters": {
-        "method": "GET",
-        "url": "=https://jrovkkjxvzuzcpexdydy.supabase.co/rest/v1/content_calendar?dia=eq.{{ $json.dia }}&select=carousel_slide_urls,carousel_caption,carousel_tema,dia",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            { "name": "apikey", "value": "={{ $vars.SUPABASE_ANON_KEY }}" },
-            { "name": "Authorization", "value": "=Bearer {{ $vars.SUPABASE_ANON_KEY }}" }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f1a2b3c4-0057-4000-a057-000000000057",
-      "name": "Supabase – Obtener Carrusel",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [1340, 700]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Crea cada slide como carousel item en Instagram y devuelve sus IDs\nconst row = $input.first().json;\nconst slideUrls = Array.isArray(row.carousel_slide_urls)\n  ? row.carousel_slide_urls\n  : JSON.parse(row.carousel_slide_urls);\n\nconst igUserId = '28840447828990358';\nconst token = $vars.INSTAGRAM_TOKEN;\nconst mediaIds = [];\n\nfor (const imageUrl of slideUrls) {\n  const response = await $helpers.httpRequest({\n    method: 'POST',\n    url: `https://graph.instagram.com/v21.0/${igUserId}/media`,\n    headers: {\n      'Authorization': token,\n      'Content-Type': 'application/json'\n    },\n    body: {\n      image_url: imageUrl,\n      is_carousel_item: true\n    }\n  });\n  mediaIds.push(response.id);\n  // Pausa entre requests para respetar rate limits\n  await new Promise(r => setTimeout(r, 2000));\n}\n\nreturn [{\n  json: {\n    mediaIds,\n    carousel_caption: row.carousel_caption,\n    carousel_tema: row.carousel_tema,\n    dia: row.dia\n  }\n}];"
-      },
-      "id": "f1a2b3c4-0058-4000-a058-000000000058",
-      "name": "Code – Crear Items IG",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [1560, 700]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://graph.instagram.com/v21.0/28840447828990358/media",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            { "name": "Authorization", "value": "={{ $vars.INSTAGRAM_TOKEN }}" },
-            { "name": "Content-Type", "value": "application/json" }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"media_type\": \"CAROUSEL\",\n  \"children\": \"{{ $json.mediaIds.join(',') }}\",\n  \"caption\": {{ JSON.stringify($json.carousel_caption) }}\n}",
-        "options": {}
-      },
-      "id": "f1a2b3c4-0059-4000-a059-000000000059",
-      "name": "IG – Crear Contenedor Carrusel",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [1780, 700]
-    },
-    {
-      "parameters": {
-        "unit": "seconds",
-        "amount": 45,
-        "resume": "timeInterval"
-      },
-      "id": "f1a2b3c4-0060-4000-a060-000000000060",
-      "name": "Esperar 45s – Carrusel",
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [2000, 700],
-      "webhookId": "wait-carrusel"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://graph.instagram.com/v21.0/28840447828990358/media_publish",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            { "name": "Authorization", "value": "={{ $vars.INSTAGRAM_TOKEN }}" }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "json",
-        "bodyParameters": {
-          "parameters": [
-            { "name": "creation_id", "value": "={{ $json.id }}" }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f1a2b3c4-0061-4000-a061-000000000061",
-      "name": "IG – Publicar Carrusel",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [2220, 700]
-    },
-    {
-      "parameters": {
-        "method": "PATCH",
-        "url": "=https://jrovkkjxvzuzcpexdydy.supabase.co/rest/v1/content_calendar?dia=eq.{{ $('Code – Extraer DIA Carrusel').item.json.dia }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            { "name": "apikey", "value": "={{ $vars.SUPABASE_ANON_KEY }}" },
-            { "name": "Authorization", "value": "=Bearer {{ $vars.SUPABASE_ANON_KEY }}" },
-            { "name": "Prefer", "value": "return=minimal" }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "json",
-        "bodyParameters": {
-          "parameters": [
-            { "name": "carousel_status", "value": "publicado" }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f1a2b3c4-0062-4000-a062-000000000062",
-      "name": "Supabase – Marcar Carrusel Publicado",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [2440, 700]
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $vars.TELEGRAM_CHAT_ID }}",
-        "text": "=✅ <b>¡Carrusel publicado en Instagram!</b>\n\n🖼️ <b>{{ $('Code – Crear Items IG').item.json.carousel_tema }}</b>\n{{ $('Code – Crear Items IG').item.json.mediaIds.length }} slides publicados en <b>@senda_natural_</b>\n\nEstado actualizado en el calendario.",
-        "parseMode": "HTML",
-        "additionalFields": {}
-      },
-      "id": "f1a2b3c4-0063-4000-a063-000000000063",
-      "name": "Telegram – Carrusel Publicado ✅",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [2660, 700],
-      "credentials": {
-        "telegramApi": {
-          "id": "TELEGRAM_CREDENTIAL_ID",
-          "name": "Senda Natural Telegram"
-        }
-      }
+      "position": [900, 820]
     }
   ],
   "connections": {
@@ -706,13 +228,8 @@
     },
     "¿Vídeos OK?": {
       "main": [
-        [{ "node": "Supabase – Guardar URLs", "type": "main", "index": 0 }],
+        [{ "node": "Telegram – Notificar Vídeos", "type": "main", "index": 0 }],
         [{ "node": "Telegram – Notificar Error", "type": "main", "index": 0 }]
-      ]
-    },
-    "Supabase – Guardar URLs": {
-      "main": [
-        [{ "node": "Telegram – Notificar Vídeos", "type": "main", "index": 0 }]
       ]
     },
     "Telegram Trigger – Aprobación": {
@@ -722,125 +239,13 @@
     },
     "¿Aprobado?": {
       "main": [
-        [{ "node": "¿Es Carrusel?", "type": "main", "index": 0 }],
+        [{ "node": "Telegram – Confirmar Aprobación", "type": "main", "index": 0 }],
         [{ "node": "Telegram – Confirmar Rechazo", "type": "main", "index": 0 }]
-      ]
-    },
-    "¿Es Carrusel?": {
-      "main": [
-        [{ "node": "Telegram – Confirmar Carrusel", "type": "main", "index": 0 }],
-        [{ "node": "Telegram – Confirmar Aprobación", "type": "main", "index": 0 }]
-      ]
-    },
-    "Telegram – Confirmar Carrusel": {
-      "main": [
-        [{ "node": "Code – Extraer DIA Carrusel", "type": "main", "index": 0 }]
-      ]
-    },
-    "Code – Extraer DIA Carrusel": {
-      "main": [
-        [{ "node": "Supabase – Obtener Carrusel", "type": "main", "index": 0 }]
-      ]
-    },
-    "Supabase – Obtener Carrusel": {
-      "main": [
-        [{ "node": "Code – Crear Items IG", "type": "main", "index": 0 }]
-      ]
-    },
-    "Code – Crear Items IG": {
-      "main": [
-        [{ "node": "IG – Crear Contenedor Carrusel", "type": "main", "index": 0 }]
-      ]
-    },
-    "IG – Crear Contenedor Carrusel": {
-      "main": [
-        [{ "node": "Esperar 45s – Carrusel", "type": "main", "index": 0 }]
-      ]
-    },
-    "Esperar 45s – Carrusel": {
-      "main": [
-        [{ "node": "IG – Publicar Carrusel", "type": "main", "index": 0 }]
-      ]
-    },
-    "IG – Publicar Carrusel": {
-      "main": [
-        [{ "node": "Supabase – Marcar Carrusel Publicado", "type": "main", "index": 0 }]
-      ]
-    },
-    "Supabase – Marcar Carrusel Publicado": {
-      "main": [
-        [{ "node": "Telegram – Carrusel Publicado ✅", "type": "main", "index": 0 }]
-      ]
-    },
-    "Telegram – Confirmar Aprobación": {
-      "main": [
-        [{ "node": "Code – Extraer DIA", "type": "main", "index": 0 }]
-      ]
-    },
-    "Code – Extraer DIA": {
-      "main": [
-        [{ "node": "Supabase – Obtener URLs", "type": "main", "index": 0 }]
-      ]
-    },
-    "Supabase – Obtener URLs": {
-      "main": [
-        [{ "node": "IG – Crear Reel A", "type": "main", "index": 0 }]
-      ]
-    },
-    "IG – Crear Reel A": {
-      "main": [
-        [{ "node": "Esperar 60s – Reel A", "type": "main", "index": 0 }]
-      ]
-    },
-    "Esperar 60s – Reel A": {
-      "main": [
-        [{ "node": "IG – Publicar Reel A", "type": "main", "index": 0 }]
-      ]
-    },
-    "IG – Publicar Reel A": {
-      "main": [
-        [{ "node": "IG – Crear Reel B", "type": "main", "index": 0 }]
-      ]
-    },
-    "IG – Crear Reel B": {
-      "main": [
-        [{ "node": "Esperar 60s – Reel B", "type": "main", "index": 0 }]
-      ]
-    },
-    "Esperar 60s – Reel B": {
-      "main": [
-        [{ "node": "IG – Publicar Reel B", "type": "main", "index": 0 }]
-      ]
-    },
-    "IG – Publicar Reel B": {
-      "main": [
-        [{ "node": "Supabase – Actualizar Publicado", "type": "main", "index": 0 }]
-      ]
-    },
-    "Supabase – Actualizar Publicado": {
-      "main": [
-        [{ "node": "Telegram – Publicado ✅", "type": "main", "index": 0 }]
       ]
     },
     "Telegram – Confirmar Rechazo": {
       "main": [
-        [{ "node": "Supabase – Marcar Pendiente", "type": "main", "index": 0 }]
-      ]
-    },
-    "Webhook – Carrusel Listo": {
-      "main": [
-        [{ "node": "¿Slides OK?", "type": "main", "index": 0 }]
-      ]
-    },
-    "¿Slides OK?": {
-      "main": [
-        [{ "node": "Supabase – Guardar Carrusel", "type": "main", "index": 0 }],
-        [{ "node": "Telegram – Error Carrusel", "type": "main", "index": 0 }]
-      ]
-    },
-    "Supabase – Guardar Carrusel": {
-      "main": [
-        [{ "node": "Telegram – Notificar Carrusel", "type": "main", "index": 0 }]
+        [{ "node": "HTTP – Marcar como pendiente", "type": "main", "index": 0 }]
       ]
     }
   },
