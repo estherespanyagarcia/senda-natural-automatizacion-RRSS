@@ -66,3 +66,9 @@ Reglas de la usuaria. No negociables. Aplican a todo reel o vídeo, cada día.
 - En los reels sin ella, subir el misterio y la atmósfera: planos cerrados de objetos y manos, sombras, niebla, luz dirigida, texturas, contraluces, movimientos de cámara lentos, detalles simbólicos que ilustren la metáfora del guion. Mantener el look cinematográfico de serie de Netflix (regla 0) y las imágenes alineadas con lo que dice la voz (regla 2).
 - Sin ella no hay sincronía labial: toda la narración va como voz en off sobre las escenas (`generate_audio:false` + `video_audio_mix`), con subtítulos llamativos (regla 4) y copy correcto (regla 7).
 - Cuidar manos y cuerpos si aparecen personas: anatomía correcta, sin deformaciones.
+
+## 10. Subtítulos con CapCut (vía acordada)
+- Los subtítulos los graba la usuaria en CapCut; yo no tengo herramienta para grabarlos.
+- Flujo: (1) entrego el reel sin subtítulos con enlace de descarga y el texto exacto de la locución; (2) ella lo abre en CapCut, subtitula con el estilo del punto 4 y exporta; (3) lo sube con el widget de subida de Higgsfield (`media_upload_widget`); (4) con el media_id obtengo la URL de CloudFront, la guardo en `video_url` y compruebo copy (regla 7); (5) NO pasar a `aprobado` hasta que ella confirme el vídeo con subtítulos.
+- Estilo CapCut: auto-subtítulos en español, 1-3 palabras por pantalla, letra gruesa grande, crema #FAF6F0 con contorno oscuro #0E0D0A y sombra, palabra clave en dorado #D4AF7F, animación palabra a palabra (pop/karaoke), zona segura (centro-inferior, sin tapar cara ni botones). Guardar el estilo como preset para reutilizarlo. Exportar 1080x1920 con audio.
+- Revisar la transcripción automática: nombres y tecnicismos (p. ej. "ultravioleta") suelen fallar.
