@@ -53,3 +53,9 @@ Reglas de la usuaria. No negociables. Aplican a todo reel o vídeo, cada día.
 - Estructura: gancho + idea central en frases cortas, CTA en imperativo y firma "Tu asesora de piel · Senda Natural". Sin `tema`, sin hashtags de "rutina", sin "Ringana", sin promesas de resultado.
 - Antes de pasar un reel a `listo` o `aprobado`, comprobar con SQL que `carousel_caption` no está vacío y coincide con la locución. Sin copy correcto, no se aprueba.
 - Si un reel ya publicado sale con copy erróneo, avisar a la usuaria y darle el texto correcto para editarlo en Instagram.
+
+## 8. Comprobar de dónde coge el copy el workflow (lección del día 4)
+- Tener `carousel_caption` bien escrito no basta: el nodo "IG – Crear Reel" de n8n debe leerlo. Su campo `caption` ha de ser `{{ $('Supabase – Buscar Aprobados').item.json.carousel_caption }}` (o el equivalente que llegue desde "Set – Datos Publicación"), nunca `guion`, `tema` ni un texto fijo.
+- Antes de aprobar un reel: (1) comparar el copy de `carousel_caption` con la locución, (2) pedir a la usuaria captura del nodo o confirmar la expresión si no está verificada, (3) tras publicar, comprobar el copy real del post.
+- Si sale mal: NO eliminar el reel; se corrige con "Editar" en Instagram y se arregla el nodo antes de la siguiente publicación.
+- El JSON `n8n/senda-natural-produccion.json` del repositorio está desactualizado respecto al workflow real; no fiarse de él para esto.
