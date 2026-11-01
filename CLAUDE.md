@@ -50,12 +50,39 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 - Los nodos Code de n8n abortan a los 60 s: crear las slides en paralelo con `Promise.all`.
 - Instagram acepta JPEG y PNG, pero el archivo debe ser una imagen real servida por URL publica.
 
-## Estado del calendario (actualizar al avanzar)
-- Dias 1-14: guiones Nueva Premisa con cabecera `DÍA 0N · PERSONAJE · Formato`, tema/caption/notas rellenos en Supabase.
-- Listos con assets en CloudFront: carruseles 1 (publicado), 3, 8, 10; stories 5 y 12 (3 frames 1080x1920 en `carousel_slide_urls`); foto quote 6 y 13 (`imagen_url`).
-- Reels 2, 4, 7 con video; reels 9, 11 y 14: solo guion + caption (`status='pendiente'`), falta producir el video.
-- Stories en Canva: copiar un diseno de stories existente (p. ej. `DAHZY88BKO8`, paginas 2-4) y reemplazar texto; exportar solo esas paginas. El sticker de encuesta/SEGUIR se anade nativo en Instagram.
-- Los restos de plan antiguo (caption con porcentajes, slides viejas) se limpian al reescribir cada dia.
+## Estado del calendario (actualizado 1-nov-2026)
+- Publicados: 1 (carrusel), 2 (reel), 3 (carrusel), 4 (reel), 5 (carrusel de imagenes, 1-nov, lanzado a mano con Execute workflow).
+- Aprobados con video+copy: reel 7 (3-nov, sin La Investigadora), reel 9 (5-nov, con ella).
+- Listos: foto quote 6 (2-nov) y 13 (9-nov, `imagen_url`), carruseles 8 y 10. Reel 11 (7-nov, sin ella): video hecho y subtitulado pero NO guardado; tiene un error en los subtitulos ("Link envio" en vez de "Link en bio") y billetes/reloj dorado en la escena de la maleta; pendiente de decision de la usuaria.
+- Pendientes: reel 14 (10-nov, con ella; guion y copy hechos, falta producir) y dia 12 (8-nov), que pasa de stories a CARRUSEL DE VIDEO (rama nueva en n8n + clips).
+- Los copies (`carousel_caption`) de todos los dias 5-14 estan escritos desde la locucion/guion. Comprobar siempre que no esten vacios antes de aprobar.
+
+## Decisiones de formato (1-nov)
+- STORIES RETIRADAS del calendario: el workflow no las soporta (caen en la rama de imagen, que publica una foto de feed y busca `imagen_url`) y las pegatinas de encuesta/SEGUIR no se pueden anadir por la API. Mezcla de formatos acordada: reel, carrusel de imagenes y carrusel de video.
+- Carrusel de imagenes: base Canva `DAHZYAM2x3c` (9 paginas, 1080x1350 = 4:5, NO 1:1 como dice el doc de Drive; es el formato de los carruseles ya publicados). Copiar, editar pagina a pagina (replace_text/delete_element), exportar solo las paginas usadas (p. ej. 1-5 y 9), JPG 90. Dia 5 usa el diseno `DAHZssiMfd0`.
+- Cuidado al copiar URLs firmadas de Canva a mano: un caracter distinto (p. ej. la hora en `response-expires`) da `download 403` en `ingest`; repetir solo esa slide con `"start": k`.
+- Carrusel de video: Instagram lo permite (hijos VIDEO), pero n8n solo tiene rama de imagenes; hay que anadirla antes de planificarlo.
+
+## Produccion de reels: lecciones de la semana 1-nov
+- Siempre leer `.claude/skills/senda-reels/SKILL.md` primero (look cinematografico, outfit propio de La Investigadora sin bata blanca, voz suya, imagenes alineadas con el guion, copy correcto, subtitulos con OpusClip).
+- Subtitulos: conector "AI Producer by OpusClip" (ya conectado). Flujo en la skill (seccion 10). Dominios de red permitidos en el entorno: `producer.opus.pro`, `*.opuslab.ai`, `storage.googleapis.com`, `upload.higgsfield.ai`, `ak-data.magnific.com`. El patron `scribble-subtitle` con acento #D4AF7F gusto a la usuaria. Revisar siempre que el texto grabado coincida con la locucion (el dia 11 salio "envio").
+- `copyvid` solo acepta paths planos (`d9_s1.mp4`, sin `/`). La URL firmada de ElevenLabs caduca en 2 h: pedir una nueva con `creative_get_flow_run_status` antes de copiar.
+- Seedance: pedir labios en movimiento de forma explicita; si el clip hablado sale sin labios o con la mano deformada, regenerar solo ese plano. No recortar el ultimo clip por debajo de la duracion de la voz (se corto "bio").
+- El filtro de contenido de Higgsfield puede dar falsos positivos (`nsfw`) con primeros planos de piel/cara; reformular sin personas.
+- Costes: un reel completo gasta mucho. Higgsfield: 2.800 creditos al inicio de la sesion, 215 tras producir reels 7, 9 y 11. Avisar a la usuaria antes de producir otro.
+- Los enlaces de descarga de OpusClip son de un solo uso y redirigen a otro host: usar cookie jar (`curl -L -c jar -b jar`).
+
+## n8n: lecciones nuevas (1-nov)
+- El programador lanza a las 18:00 hora de ESPANA (17:00 UTC en invierno), aunque el nodo diga "18:00 UTC". Si se pierde esa hora, se lanza a mano con Execute workflow en el Editor (solo recoge `aprobado` con fecha de hoy).
+- Los nodos "IG – Crear Imagen" e "IG – Publicar Imagen" mandan el token en el campo de cuerpo `access_token` y todavia llevan el prefijo "Bearer": error 400 "Invalid OAuth access token". Corregir con `{{ $('Set – Datos Publicación').item.json._token.replace(/^Bearer\s*/i, '') }}` ANTES de la foto quote del dia 6. Revisar tambien que `caption` lea `carousel_caption` e `image_url` lea `imagen_url`.
+- La rama de carrusel funciona (dias 1, 3 y 5 publicados por ahi).
+- El JSON de `n8n/` en el repositorio esta desactualizado respecto al workflow real: no fiarse de el.
+- Confirmacion de Telegram: pendientes parse mode HTML, saltos de linea reales, hora "19:00 Espana / 13:00 Colombia / 12:00 Mexico" (cambia a 20:00 el 28-mar-2027) y responder al boton (Answer Query Callback) para evitar duplicados.
+
+## Agentes y otras plataformas
+- Agentes de proyecto creados (rama `claude/senda-natural-cinematografico-xpmnqr`, PR #17): `senda-tiktok` y `senda-youtube` en `.claude/agents/`, con skills `senda-tiktok` y `senda-youtube`. Reutilizan el reel aprobado; no publican sin "aprueba". TikTok publica con las herramientas `tiktok_*` de Higgsfield (cuenta aun sin conectar). YouTube no tiene herramienta de subida conectada.
+- Sesiones creadas para ellos: "Agente TikTok · Senda Natural" y "Agente YouTube · Senda Natural".
+- Reglas de la usuaria vigentes: no mencionar Ringana, nada de "rutina", sin cifras/plazos inventados ("casi siempre" en vez de "cuatro de cada cinco"), firma "Tu asesora de piel · Senda Natural", guardar en `content_calendar` solo tras su visto bueno.
 
 ## Reels: proceso validado con el dia 2 (publicado 2026-10-29)
 - El video de Higgsfield sale SIN audio y dura 15 s. Un reel de ~45 s se monta por ESCENAS que sigan el guion (gancho, metafora, pivote, herida, cierre) y la voz en off de ElevenLabs encima. Nunca repetir el mismo clip en bucle ni usar escenas que no encajen con lo que dice la voz.
