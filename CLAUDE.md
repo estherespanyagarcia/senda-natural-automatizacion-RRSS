@@ -50,12 +50,13 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 - Los nodos Code de n8n abortan a los 60 s: crear las slides en paralelo con `Promise.all`.
 - Instagram acepta JPEG y PNG, pero el archivo debe ser una imagen real servida por URL publica.
 
-## Estado del calendario (actualizado 1-nov-2026)
-- Publicados: 1 (carrusel), 2 (reel), 3 (carrusel), 4 (reel), 5 (carrusel de imagenes, 1-nov, lanzado a mano con Execute workflow).
-- Aprobados con video+copy: reel 7 (3-nov, sin La Investigadora), reel 9 (5-nov, con ella).
-- Listos: foto quote 6 (2-nov) y 13 (9-nov, `imagen_url`), carruseles 8 y 10. Reel 11 (7-nov, sin ella): video hecho y subtitulado pero NO guardado; tiene un error en los subtitulos ("Link envio" en vez de "Link en bio") y billetes/reloj dorado en la escena de la maleta; pendiente de decision de la usuaria.
+## Estado del calendario (actualizado 2-nov-2026)
+- Publicados: 1 (carrusel), 2 (reel), 3 (carrusel), 4 (reel), 5 (carrusel de imagenes, 1-nov, lanzado a mano con Execute workflow), 6 (foto quote, 2-nov, salio bien con su copy).
+- Aprobados: reel 7 (3-nov, GPS, sin La Investigadora), carrusel 8 (4-nov), reel 9 (5-nov, con ella) y reel 11 (7-nov, sin ella; acepto con el subtitulo "Link envio" y billetes/reloj dorado en la maleta, regenerable si ella lo pide).
+- Listos: foto quote 13 (9-nov, `imagen_url`), carrusel 10.
 - Pendientes: reel 14 (10-nov, con ella; guion y copy hechos, falta producir) y dia 12 (8-nov), que pasa de stories a CARRUSEL DE VIDEO (rama nueva en n8n + clips).
 - Los copies (`carousel_caption`) de todos los dias 5-14 estan escritos desde la locucion/guion. Comprobar siempre que no esten vacios antes de aprobar.
+- La consulta "Supabase – Buscar Aprobados" NO filtra por fecha: coge el `aprobado` con el `dia` mas bajo (`status=eq.aprobado&order=dia.asc&limit=1`). Para que una pieza salga hoy, ninguna `aprobado` con numero menor debe quedar sin publicar. Una pieza que no deba salir se deja en `listo`.
 
 ## Decisiones de formato (1-nov)
 - STORIES RETIRADAS del calendario: el workflow no las soporta (caen en la rama de imagen, que publica una foto de feed y busca `imagen_url`) y las pegatinas de encuesta/SEGUIR no se pueden anadir por la API. Mezcla de formatos acordada: reel, carrusel de imagenes y carrusel de video.
@@ -74,7 +75,10 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 
 ## n8n: lecciones nuevas (1-nov)
 - El programador lanza a las 18:00 hora de ESPANA (17:00 UTC en invierno), aunque el nodo diga "18:00 UTC". Si se pierde esa hora, se lanza a mano con Execute workflow en el Editor (solo recoge `aprobado` con fecha de hoy).
-- Los nodos "IG – Crear Imagen" e "IG – Publicar Imagen" mandan el token en el campo de cuerpo `access_token` y todavia llevan el prefijo "Bearer": error 400 "Invalid OAuth access token". Corregir con `{{ $('Set – Datos Publicación').item.json._token.replace(/^Bearer\s*/i, '') }}` ANTES de la foto quote del dia 6. Revisar tambien que `caption` lea `carousel_caption` e `image_url` lea `imagen_url`.
+- ARREGLADO el 1-nov y verificado el 2-nov (dia 6 publicado bien): `IG – Crear Imagen` / `IG – Publicar Imagen` mandan `access_token` SIN "Bearer" con `{{ $('Set – Datos Publicación').item.json._token.replace(/^Bearer\s*/i, '') }}`.
+- `caption` de IG – Crear Imagen e IG – Crear Reel ya NO es texto fijo: lee `{{ $('Supabase – Buscar Aprobados').item.json.carousel_caption }}`. Antes la imagen usaba `{{ $json.tema }}` (descriptor interno) y el reel un texto fijo ("interes compuesto") que salio en el reel del dia 7 y hubo que borrar. Para que funcione, el `select` de la URL de "Supabase – Buscar Aprobados" incluye `carousel_caption`.
+- "Execute workflow" publica DE VERDAD; para probar un nodo usar solo "Execute step" dentro del nodo. Si el nodo muestra el aviso de salida desactualizada, es normal tras cambiar parametros. Comprobar que "Pin data" no este activado.
+- Despues de tocar un nodo, comprobar siempre en Instagram el copy de la primera publicacion que pase por el.
 - La rama de carrusel funciona (dias 1, 3 y 5 publicados por ahi).
 - El JSON de `n8n/` en el repositorio esta desactualizado respecto al workflow real: no fiarse de el.
 - Confirmacion de Telegram: pendientes parse mode HTML, saltos de linea reales, hora "19:00 Espana / 13:00 Colombia / 12:00 Mexico" (cambia a 20:00 el 28-mar-2027) y responder al boton (Answer Query Callback) para evitar duplicados.
