@@ -81,7 +81,7 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 - Despues de tocar un nodo, comprobar siempre en Instagram el copy de la primera publicacion que pase por el.
 - La rama de carrusel funciona (dias 1, 3 y 5 publicados por ahi).
 - El JSON de `n8n/` en el repositorio esta desactualizado respecto al workflow real: no fiarse de el.
-- Confirmacion de Telegram: pendientes parse mode HTML, saltos de linea reales, hora "19:00 Espana / 13:00 Colombia / 12:00 Mexico" (cambia a 20:00 el 28-mar-2027) y responder al boton (Answer Query Callback) para evitar duplicados.
+- Confirmacion de Telegram: pendientes parse mode HTML, saltos de linea reales, hora real de publicacion "18:00 Espana / 12:00 Colombia / 11:00 Mexico" (invierno; desde el 28-mar-2027 cambia la hora de Espana). El mensaje decia 20:00 por error. El guion trae `\n` literales: convertir con `.replace(/\\n/g, '\n')` y cortar a ~900 caracteres y responder al boton (Answer Query Callback) para evitar duplicados.
 
 ## Agentes y otras plataformas
 - Agentes de proyecto creados (rama `claude/senda-natural-cinematografico-xpmnqr`, PR #17): `senda-tiktok` y `senda-youtube` en `.claude/agents/`, con skills `senda-tiktok` y `senda-youtube`. Reutilizan el reel aprobado; no publican sin "aprueba". TikTok publica con las herramientas `tiktok_*` de Higgsfield (cuenta aun sin conectar). YouTube no tiene herramienta de subida conectada.
