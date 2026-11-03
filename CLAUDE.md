@@ -51,8 +51,8 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 - Instagram acepta JPEG y PNG, pero el archivo debe ser una imagen real servida por URL publica.
 
 ## Estado del calendario (actualizado 2-nov-2026)
-- Publicados: 1 (carrusel), 2 (reel), 3 (carrusel), 4 (reel), 5 (carrusel de imagenes, 1-nov, lanzado a mano con Execute workflow), 6 (foto quote, 2-nov, salio bien con su copy).
-- Aprobados: reel 7 (3-nov, GPS, sin La Investigadora), carrusel 8 (4-nov), reel 9 (5-nov, con ella) y reel 11 (7-nov, sin ella; acepto con el subtitulo "Link envio" y billetes/reloj dorado en la maleta, regenerable si ella lo pide).
+- Publicados: 1 (carrusel), 2 (reel), 3 (carrusel), 4 (reel), 5 (carrusel de imagenes, 1-nov, lanzado a mano con Execute workflow), 6 (foto quote, 2-nov, salio bien con su copy), 7 (reel GPS, 3-nov: la 1a vez salio con el copy del interes compuesto por un nodo sin guardar, se borro y se republico con Execute workflow; copy correcto).
+- Aprobados: carrusel 8 (4-nov), reel 9 (5-nov, con ella) y reel 11 (7-nov, sin ella; acepto con el subtitulo "Link envio" y billetes/reloj dorado en la maleta, regenerable si ella lo pide).
 - Listos: foto quote 13 (9-nov, `imagen_url`), carrusel 10.
 - Pendientes: reel 14 (10-nov, con ella; guion y copy hechos, falta producir) y dia 12 (8-nov), que pasa de stories a CARRUSEL DE VIDEO (rama nueva en n8n + clips).
 - Los copies (`carousel_caption`) de todos los dias 5-14 estan escritos desde la locucion/guion. Comprobar siempre que no esten vacios antes de aprobar.
@@ -78,6 +78,7 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 - ARREGLADO el 1-nov y verificado el 2-nov (dia 6 publicado bien): `IG – Crear Imagen` / `IG – Publicar Imagen` mandan `access_token` SIN "Bearer" con `{{ $('Set – Datos Publicación').item.json._token.replace(/^Bearer\s*/i, '') }}`.
 - `caption` de IG – Crear Imagen e IG – Crear Reel ya NO es texto fijo: lee `{{ $('Supabase – Buscar Aprobados').item.json.carousel_caption }}`. Antes la imagen usaba `{{ $json.tema }}` (descriptor interno) y el reel un texto fijo ("interes compuesto") que salio en el reel del dia 7 y hubo que borrar. Para que funcione, el `select` de la URL de "Supabase – Buscar Aprobados" incluye `carousel_caption`.
 - "Execute workflow" publica DE VERDAD; para probar un nodo usar solo "Execute step" dentro del nodo. Si el nodo muestra el aviso de salida desactualizada, es normal tras cambiar parametros. Comprobar que "Pin data" no este activado.
+- IG – Crear Reel verificado el 3-nov: `caption` lee `carousel_caption` (el cambio de la noche anterior no estaba guardado cuando corrio el programador). Tras editar un nodo, esperar al aviso "Saved" y revisar en Executions la entrada del nodo antes de dar un dia por bueno.
 - Despues de tocar un nodo, comprobar siempre en Instagram el copy de la primera publicacion que pase por el.
 - La rama de carrusel funciona (dias 1, 3 y 5 publicados por ahi).
 - El JSON de `n8n/` en el repositorio esta desactualizado respecto al workflow real: no fiarse de el.
