@@ -20,7 +20,6 @@ Estructura de un vídeo de 1.000.000 de visitas. Aplica a reels y, adaptada, a c
 - Historia / contexto: la parte larga, con rodeo.
 - Moraleja (la enseñanza, voz de experta).
 - CTA: la última frase.
-- Apuntes: "vídeos con imágenes cada 0,5 segundos". Ver "Ritmo visual" abajo.
 
 ## 3. El gancho: 14 tipos (elegir uno por pieza y anotarlo en `notas`)
 | Tipo | Idea | Ejemplo Senda (adaptable) |
@@ -66,8 +65,8 @@ Lectura dudosa en los apuntes (confirmar con la usuaria): "gancho cotilla", "gan
 - **Moraleja:** …
 - **CTA:** …
 
-## Ritmo visual (apunte "imágenes cada 0,5 segundos")
-- Valor por defecto acordado, a confirmar con la usuaria: primeros 3 s con cortes cada 0,5 a 1 s; el resto con un plano nuevo cada 2 a 3 s. Se consigue cortando y alternando planos con las herramientas gratuitas de Magnific (`video_cut` + `video_concatenate`), sin regenerar. Se mantiene el look cinematográfico de la skill senda-reels.
+## Ritmo visual (idea EN RESERVA, no aplicar)
+- Apunte de la usuaria: "vídeos con imágenes cada 0,5 segundos". Decisión del 8-nov: NO aplicarlo por ahora; se mantiene el ritmo cinematográfico actual. Solo se retoma si los reels no dan los resultados esperados, y siempre con su visto bueno.
 
 ## Compatibilidad con las reglas de Senda
 - Sin "rutina", sin "Ringana", sin cifras o plazos inventados, sin testimonios inventados, sin promesas de salud ni de rejuvenecimiento ("cómo rejuveneces…" del apunte se adapta a "cómo entendí…"). Firma "Tu asesora de piel · Senda Natural".
