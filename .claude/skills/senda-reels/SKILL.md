@@ -77,3 +77,11 @@ Reglas de la usuaria. No negociables. Aplican a todo reel o vídeo, cada día.
 ## 11. Enlace de la bio
 - Cuando un copy, guion, subtítulo o locución mencione el enlace de la bio, escribir siempre **www.sendanatural.net** (nunca app.sendanatural.lat). Vale para reels, carruseles, TikTok y YouTube.
 - Los reels con CTA "link en bio" dicen solo "Link en bio" en voz y subtítulo; el dominio completo va en el copy de Instagram.
+
+## 12. Portada del reel (decisión de la usuaria, 8-nov)
+- Todo reel lleva una portada propia para el feed. NO usar el primer fotograma (casi siempre La Investigadora, que llama poco la atención).
+- Formato 9:16 (1080x1920) con el contenido clave en la zona central (el grid del perfil recorta a 3:4). Imagen cinematográfica y simbólica de la metáfora del guion (objetos, manos, luz dorada, sin rostro fijo mirando a cámara) + el gancho en tipografía serif cursiva, crema #EFE3CF y dorado #D4AF7F. Sin otros textos.
+- Cómo se hace: imagen con `generate_image` (gpt_image_2_6, 9:16) y una segunda pasada con la imagen de referencia pidiendo el texto exacto (funciona bien con acentos). Canva no sirve: `resize-design` agotó la cuota gratuita.
+- Se guarda importando a Higgsfield (`media_import_url`) y la URL de CloudFront `.png` va en `content_calendar.portada_url`. n8n debe mandarla en `cover_url` del nodo "IG – Crear Reel".
+- Comprobar siempre el texto de la portada letra por letra antes de guardarla.
+

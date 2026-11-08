@@ -62,6 +62,11 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 - Los copies (`carousel_caption`) de todos los dias 5-14 estan escritos desde la locucion/guion. Comprobar siempre que no esten vacios antes de aprobar.
 - La consulta "Supabase – Buscar Aprobados" NO filtra por fecha: coge el `aprobado` con el `dia` mas bajo (`status=eq.aprobado&order=dia.asc&limit=1`). Para que una pieza salga hoy, ninguna `aprobado` con numero menor debe quedar sin publicar. Una pieza que no deba salir se deja en `listo`.
 
+## Portadas de reels y variedad del feed (8-nov)
+- Columna nueva `content_calendar.portada_url` (portada 9:16 del reel). Regla completa en la skill senda-reels, seccion 12. Portada del dia 14 ya hecha. Pendiente en n8n: añadir `portada_url` al `select` de "Supabase – Buscar Aprobados" y el campo `cover_url` en "IG – Crear Reel"; probarlo con el dia 14 (10-nov).
+- Carruseles: alternar portada con FOTO cinematografica (ej. dia 12) y portada solo tipografia; mismas paleta, tipografia e icono para mantener la marca. Carrusel dia 12 (8-nov): 5 slides 4:5, foto en la slide 1, Canva DAHaU4Ai2Ro.
+- Dias 15-17 los genero una rutina automatica el 4-nov (no vienen de los documentos de Drive) y estaban `aprobado` sin copy: pasan a `listo` (15, 16) y `pendiente` (17, stories -> convertir a carrusel). Revisar contra la fuente de verdad antes de aprobar.
+
 ## Decisiones de formato (1-nov)
 - STORIES RETIRADAS del calendario: el workflow no las soporta (caen en la rama de imagen, que publica una foto de feed y busca `imagen_url`) y las pegatinas de encuesta/SEGUIR no se pueden anadir por la API. Mezcla de formatos acordada: reel, carrusel de imagenes y carrusel de video.
 - Carrusel de imagenes: base Canva `DAHZYAM2x3c` (9 paginas, 1080x1350 = 4:5, NO 1:1 como dice el doc de Drive; es el formato de los carruseles ya publicados). Copiar, editar pagina a pagina (replace_text/delete_element), exportar solo las paginas usadas (p. ej. 1-5 y 9), JPG 90. Dia 5 usa el diseno `DAHZssiMfd0`.
