@@ -84,4 +84,6 @@ Reglas de la usuaria. No negociables. Aplican a todo reel o vídeo, cada día.
 - Cómo se hace: imagen con `generate_image` (gpt_image_2_6, 9:16) y una segunda pasada con la imagen de referencia pidiendo el texto exacto (funciona bien con acentos). Canva no sirve: `resize-design` agotó la cuota gratuita.
 - Se guarda importando a Higgsfield (`media_import_url`) y la URL de CloudFront `.png` va en `content_calendar.portada_url`. n8n debe mandarla en `cover_url` del nodo "IG – Crear Reel".
 - Comprobar siempre el texto de la portada letra por letra antes de guardarla.
+- La audiencia principal son MUJERES: la portada debe hablarles a ellas con un rostro/gesto femenino real y reconocible (espejo, mirarse la piel, bolso, reunión), NO con objetos solos como herramientas (la portada de martillo y tornillo del día 14 se descartó: repetía el vídeo y no llamaba la atención).
+- Zona segura del grid: el perfil recorta 12,5 % por arriba y por abajo (9:16 -> 3:4). El texto va entre el 16 % y el 34 % de la altura; el primer renglón nunca por encima del 14 %.
 
