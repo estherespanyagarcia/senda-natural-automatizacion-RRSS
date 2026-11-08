@@ -14,7 +14,7 @@ description: Reglas de Senda Natural para adaptar reels a YouTube Shorts (títul
 - Sin clickbait engañoso y sin promesas de resultado.
 
 ## Descripción
-- 2-4 líneas: idea central y CTA del guion (diagnóstico en app.sendanatural.lat / compartir / seguir el canal).
+- 2-4 líneas: idea central y CTA del guion (diagnóstico gratuito, enlace www.sendanatural.net / compartir / seguir el canal).
 - Firma "Tu asesora de piel · Senda Natural". Sin "Ringana", sin "rutina".
 - 3 a 5 hashtags temáticos (piel, cuidado, bienestar) y #Shorts.
 

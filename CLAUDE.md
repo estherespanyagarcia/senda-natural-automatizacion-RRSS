@@ -7,7 +7,7 @@ Memoria del proyecto. Aplica a todo el contenido de RRSS (carruseles, reels, sto
 - NUNCA usar nombres oficiales de producto en copy publico (captions, slides, `tema`, `carousel_tema`). Usar descripcion generica ("tu crema ideal", "la crema ligera"). El nombre oficial solo en `notas` (uso interno).
 - NUNCA testimonios inventados (nombre + edad + frase). Sin testimonio real y autorizado, reformular como criterio o necesidad sin atribucion. Ejemplo valido: "Lo que casi todas buscamos: una crema que no pese y que hidrate de verdad."
 - Firma siempre "Senda Natural". Nunca el nombre personal de Esther.
-- CTAs segun el documento de cada dia: A = Conversion (reels: diagnostico en app.sendanatural.lat), B = Engagement (carruseles: comentarios/guardados/shares), C = Follow (stories: seguir + DM automatico que lleva a la app). Nunca checkout ni venta automatica.
+- CTAs segun el documento de cada dia: A = Conversion (reels: diagnostico gratuito; el enlace de la bio es SIEMPRE www.sendanatural.net, nunca app.sendanatural.lat), B = Engagement (carruseles: comentarios/guardados/shares), C = Follow (stories: seguir + DM automatico que lleva a la app). Nunca checkout ni venta automatica.
 - Nunca la palabra "rutina" ni lenguaje de red de ventas. Cada escena lleva etiqueta de veracidad (real / compuesta / ilustrativa); una escena ilustrativa nunca se presenta como testimonio.
 
 ## FUENTE DE VERDAD DE LOS GUIONES (leer antes de tocar contenido)
@@ -43,6 +43,10 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 - NUNCA subir binarios desde un nodo Code de n8n: el Buffer viaja como JSON y el archivo queda corrupto. Para URLs de Canva aun sin guardar, el nodo "Code – Subir Imagenes a Supabase" las envuelve con la function `canva-img` (solo hosts `export-download.canva.com`).
 - La function `img` solo sirve rutas `dia{N}/slide-000{i}.jpg` del bucket (no usar para Instagram).
 - Caption de carruseles: el nodo "Code – Crear Carrusel IG" lee `carousel_caption` de Supabase por `dia`. `tema` es un descriptor interno y NUNCA se publica.
+
+## Enlace de la bio (decision de la usuaria, 8-nov-2026)
+- Siempre que un copy, guion, subtitulo o locucion se refiera al enlace de la bio, el enlace correcto es **www.sendanatural.net**. No usar app.sendanatural.lat ni app.sendanatural.net.
+- Dia 11 publicado con el dominio antiguo en el copy de Instagram: corregido en la base de datos; en Instagram hay que editar el texto del post (Editar > copy).
 
 ## Instagram (workflow n8n "Diaria-IG")
 - Token de Instagram Login (empieza por `IGAA`), variable n8n `INSTAGRAM_TOKEN` = `Bearer IGAA...` (con espacio). Dura 60 dias: renovar antes. Nunca pegarlo duplicado.
