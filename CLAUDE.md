@@ -67,6 +67,9 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 - Carruseles: alternar portada con FOTO cinematografica (ej. dia 12) y portada solo tipografia; mismas paleta, tipografia e icono para mantener la marca. Carrusel dia 12 (8-nov): 5 slides 4:5, foto en la slide 1, Canva DAHaU4Ai2Ro.
 - Dias 15-17 los genero una rutina automatica el 4-nov (no vienen de los documentos de Drive) y estaban `aprobado` sin copy: pasan a `listo` (15, 16) y `pendiente` (17, stories -> convertir a carrusel). Revisar contra la fuente de verdad antes de aprobar.
 
+## Metodologia viral de la usuaria (8-nov)
+- Apuntes manuscritos "Metodologia Viral Copy": gancho (14 tipos), historia, moraleja, CTA, 50 s. Estan en `.claude/skills/senda-guiones-virales/SKILL.md`. Leerla SIEMPRE antes de escribir o revisar un guion, gancho o copy, y registrar en `notas` el tipo de gancho usado.
+
 ## Decisiones de formato (1-nov)
 - STORIES RETIRADAS del calendario: el workflow no las soporta (caen en la rama de imagen, que publica una foto de feed y busca `imagen_url`) y las pegatinas de encuesta/SEGUIR no se pueden anadir por la API. Mezcla de formatos acordada: reel, carrusel de imagenes y carrusel de video.
 - Carrusel de imagenes: base Canva `DAHZYAM2x3c` (9 paginas, 1080x1350 = 4:5, NO 1:1 como dice el doc de Drive; es el formato de los carruseles ya publicados). Copiar, editar pagina a pagina (replace_text/delete_element), exportar solo las paginas usadas (p. ej. 1-5 y 9), JPG 90. Dia 5 usa el diseno `DAHZssiMfd0`.

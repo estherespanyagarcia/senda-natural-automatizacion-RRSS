@@ -7,6 +7,9 @@ description: Reglas obligatorias para crear reels o vídeos de Senda Natural con
 
 Reglas de la usuaria. No negociables. Aplican a todo reel o vídeo, cada día.
 
+## Antes de todo
+- El guion, el gancho y la CTA siguen la metodología de la usuaria: leer `.claude/skills/senda-guiones-virales/SKILL.md`.
+
 ## 0. Look cinematográfico, como una serie de Netflix (obligatorio)
 - Todo plano debe verse de cine: lentes anamórficas, poca profundidad de campo, iluminación de contraste suave y dirigida, grading cálido con negros ricos, grano de película sutil, cámara con movimiento motivado (dolly, push-in, travelling, handheld suave). Nunca aspecto de vídeo corporativo, stock ni "IA plana".
 - Incluir siempre en los prompts: "cinematic, Netflix series look, anamorphic lens, shallow depth of field, film grain, rich color grading, motivated camera movement".
