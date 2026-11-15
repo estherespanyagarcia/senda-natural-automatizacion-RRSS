@@ -1,6 +1,6 @@
-# REELES DE GANCHO PRUEBA · guiones de voz (aprobados por Esther, 15-nov-2026)
+# TEST DE 7 GANCHOS · guiones de voz (aprobados por Esther, 15-nov-2026)
 
-Reglas comunes: voz de siempre (ElevenLabs `iuCOanGou5VLdjsVzuSj`), tono calmado, ritmo lento; la voz arranca en el segundo 0,0 con el gancho; música de fondo suave instrumental, sin letra, muy por debajo de la voz; subtítulos = locución exacta; nunca nombre personal; firma «Senda Natural»; escena ilustrativa, solo mujeres en imagen.
+Mensajes de Telegram: empiezan por «Test X/7». Reglas comunes: voz de siempre (ElevenLabs `iuCOanGou5VLdjsVzuSj`), tono calmado, ritmo lento; la voz arranca en el segundo 0,0 con el gancho; música de fondo suave instrumental, sin letra, muy por debajo de la voz; subtítulos = locución exacta; nunca nombre personal; firma «Senda Natural»; escena ilustrativa, solo mujeres en imagen.
 
 | Idea | Fecha | Tipo de gancho | Duración objetivo | Locución exacta |
 |---|---|---|---|---|
@@ -12,4 +12,4 @@ Reglas comunes: voz de siempre (ElevenLabs `iuCOanGou5VLdjsVzuSj`), tono calmado
 | 6 | 21-nov | sorpresa | 9 s (plano de 9 s) | Esa luz del ascensor que no perdona. Y dice más de tu día que de tu piel. |
 | 7 | 22-nov | contracorriente | 7-8 s (solo este de la serie de 3) | Cuidarte no es un lujo. Es lo primero que dejas para después. |
 
-Leyenda de cada reel: renglón 1 = gancho; renglón 2 = «Haz tu análisis de piel gratuito en www.sendanatural.net · Senda Natural». Sin hashtags.
+Leyenda de cada reel: renglón 1 = gancho; renglón 2 = «Haz tu diagnóstico de piel gratuito en www.sendanatural.net · Senda Natural». Sin hashtags.

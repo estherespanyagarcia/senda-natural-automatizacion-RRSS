@@ -65,10 +65,10 @@ sb_get("Supabase – Buscar reel de hoy",440,0,"Config 12h","fecha_publicacion=e
 add("Code – Revisar reglas y preparar mensaje","n8n-nodes-base.code",2,660,0,{"jsCode":PRE+r"""
 const cfg=$('Config 12h').first().json;
 const rows=$input.all().map(i=>i.json).filter(r=>r&&r.idea);
-if(!rows.length) return [{json:{...cfg,idea:0,bloqueado:true,mensaje:'<b>REEL DE GANCHO PRUEBA</b>\nHoy no hay reel en borrador para esta fecha. No se envía a aprobar.'}}];
+if(!rows.length) return [{json:{...cfg,idea:0,bloqueado:true,mensaje:'<b>Test —/7</b>\nHoy no hay reel en borrador para esta fecha. No se envía a aprobar.'}}];
 const r=rows[0]; const p=revisar(r);
-if(p.length) return [{json:{...cfg,idea:r.idea,bloqueado:true,motivo:p.join(', '),mensaje:`<b>REEL DE GANCHO PRUEBA · BLOQUEADO</b>\nIdea ${r.idea}: ${esc(p.join(', '))}.\nNo se envía a aprobar.`}}];
-const mensaje=`<b>REEL DE GANCHO PRUEBA</b>\nIdea ${r.idea} · publicación prevista 13:00 (Europe/Madrid)\n\n<b>Gancho:</b> ${esc(r.gancho)}\n\n<b>Leyenda:</b>\n${esc(r.caption)}\n\n<a href="${r.video_url}">Ver vídeo</a>`;
+if(p.length) return [{json:{...cfg,idea:r.idea,bloqueado:true,motivo:p.join(', '),mensaje:`<b>Test ${r.idea}/7 · BLOQUEADO</b>\nIdea ${r.idea}: ${esc(p.join(', '))}.\nNo se envía a aprobar.`}}];
+const mensaje=`<b>Test ${r.idea}/7</b>\nIdea ${r.idea} · publicación prevista 13:00 (Europe/Madrid)\n\n<b>Gancho:</b> ${esc(r.gancho)}\n\n<b>Leyenda:</b>\n${esc(r.caption)}\n\n<a href="${r.video_url}">Ver vídeo</a>`;
 return [{json:{...cfg,idea:r.idea,bloqueado:false,mensaje}}];
 """})
 add("IF – ¿Bloqueado?","n8n-nodes-base.if",2,880,0,{"conditions":{"options":{"caseSensitive":True,"typeValidation":"loose"},"combinator":"and","conditions":[{"id":nid(),"leftValue":"={{ $json.bloqueado }}","rightValue":True,"operator":{"type":"boolean","operation":"equals"}}]},"options":{}})
@@ -94,10 +94,10 @@ add("IF – ¿Aprobado?","n8n-nodes-base.if",2,660,400,{"conditions":{"options":
 J="$('Config botones').first().json"
 sb_patch("Supabase – Marcar aprobado por Esther",880,320,"Config botones",J+".idea","{status:'aprobado_por_esther',aprobado_at:new Date().toISOString()}")
 tg("Telegram – Responder botón (ok)",1100,320,"Config botones","answerCallbackQuery","{callback_query_id:%s.callback_id,text:'Aprobado'}"%J)
-tg("Telegram – Confirmación aprobado",1320,320,"Config botones","sendMessage","{chat_id:%s.chat_id,text:'REEL DE GANCHO PRUEBA aprobado (idea '+%s.idea+'). Se publicará a las 13:00 (Europe/Madrid).'}"%(J,J))
+tg("Telegram – Confirmación aprobado",1320,320,"Config botones","sendMessage","{chat_id:%s.chat_id,text:'Test '+%s.idea+'/7 aprobado (idea '+%s.idea+'). Se publicará a las 13:00 (Europe/Madrid).'}"%(J,J,J))
 sb_patch("Supabase – Volver a borrador",880,500,"Config botones",J+".idea","{status:'borrador'}")
 tg("Telegram – Responder botón (no)",1100,500,"Config botones","answerCallbackQuery","{callback_query_id:%s.callback_id,text:'Rechazado'}"%J)
-tg("Telegram – Confirmación rechazo",1320,500,"Config botones","sendMessage","{chat_id:%s.chat_id,text:'REEL DE GANCHO PRUEBA rechazado (idea '+%s.idea+'). No se publica.'}"%(J,J))
+tg("Telegram – Confirmación rechazo",1320,500,"Config botones","sendMessage","{chat_id:%s.chat_id,text:'Test '+%s.idea+'/7 rechazado (idea '+%s.idea+'). No se publica.'}"%(J,J,J))
 link("Telegram Trigger – Ganchos","Code – Extraer acción"); link("Code – Extraer acción","Config botones"); link("Config botones","IF – ¿Aprobado?")
 link("IF – ¿Aprobado?","Supabase – Marcar aprobado por Esther",0); link("IF – ¿Aprobado?","Supabase – Volver a borrador",1)
 link("Supabase – Marcar aprobado por Esther","Telegram – Responder botón (ok)"); link("Telegram – Responder botón (ok)","Telegram – Confirmación aprobado")
@@ -123,15 +123,15 @@ add("Esperar 90s","n8n-nodes-base.wait",1.1,1320,720,{"amount":90,"unit":"second
 add("IG – Publicar Reel","n8n-nodes-base.httpRequest",4.2,1540,720,{"method":"POST","url":"={{ %s.api_base }}/media_publish"%P,"sendBody":True,"specifyBody":"json",
   "jsonBody":"={{ JSON.stringify({creation_id:$('IG – Crear Reel').first().json.id,access_token:%s}) }}"%tok,"options":{}})
 sb_patch("Supabase – Marcar publicado",1760,720,"Config 13h",P+".idea","{status:'publicado',publicado_at:new Date().toISOString()}")
-tg("Telegram – Confirmación publicado",1980,720,"Config 13h","sendMessage","{chat_id:%s.chat_id,text:'REEL DE GANCHO PRUEBA publicado (idea '+%s.idea+'). Anota las visitas a las 48 h en el CSV.'}"%(P,P))
+tg("Telegram – Confirmación publicado",1980,720,"Config 13h","sendMessage","{chat_id:%s.chat_id,text:'Test '+%s.idea+'/7 publicado (idea '+%s.idea+'). Anota las visitas a las 48 h en el CSV.'}"%(P,P,P))
 # sin aprobación
 sb_get("Supabase – Buscar pendiente de hoy",1100,900,"Config 13h","fecha_publicacion=eq.{{ %s }}&status=in.(borrador,en_revision,bloqueado_reglas)"%today)
 add("Code – Mensaje sin aprobación","n8n-nodes-base.code",2,1320,900,{"jsCode":PRE+r"""
 const cfg=$('Config 13h').first().json;
 const rows=$input.all().map(i=>i.json).filter(r=>r&&r.idea);
-if(!rows.length) return [{json:{...cfg,idea:0,mensaje:'<b>REEL DE GANCHO PRUEBA</b>\nA las 13:00 no hay reel preparado para hoy. No se publica nada.'}}];
+if(!rows.length) return [{json:{...cfg,idea:0,mensaje:'<b>Test —/7</b>\nA las 13:00 no hay reel preparado para hoy. No se publica nada.'}}];
 const r=rows[0];
-const mensaje=`<b>REEL DE GANCHO PRUEBA</b>\nA las 13:00 NO hay aprobación de la idea ${r.idea}. <b>No se publica.</b>\n\n<b>Gancho:</b> ${esc(r.gancho)}\n\n<b>Leyenda:</b>\n${esc(r.caption||'')}\n\n<a href="${r.video_url||''}">Ver vídeo</a>`;
+const mensaje=`<b>Test ${r.idea}/7</b>\nA las 13:00 NO hay aprobación de la idea ${r.idea}. <b>No se publica.</b>\n\n<b>Gancho:</b> ${esc(r.gancho)}\n\n<b>Leyenda:</b>\n${esc(r.caption||'')}\n\n<a href="${r.video_url||''}">Ver vídeo</a>`;
 return [{json:{...cfg,idea:r.idea,mensaje,aprobable:!!r.video_url&&r.status!=='bloqueado_reglas'}}];
 """})
 D="$('Code – Mensaje sin aprobación').first().json"
