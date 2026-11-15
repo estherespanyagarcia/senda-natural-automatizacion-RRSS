@@ -2,7 +2,7 @@
   "name": "Ganchos Prueba · aviso 12:00 + aprobación + publicación 13:00",
   "nodes": [
     {
-      "id": "afefb729-adea-4345-a7f1-206771426f1f",
+      "id": "69bc0e2c-f99b-40c0-8c29-470925468f70",
       "name": "Schedule – Aviso 12:00",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
@@ -22,7 +22,7 @@
       }
     },
     {
-      "id": "263b20f3-2398-4596-9451-13a9a687d88f",
+      "id": "a650ff49-339f-47eb-aace-8cbd25539ffd",
       "name": "Config 12h",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -34,37 +34,37 @@
         "assignments": {
           "assignments": [
             {
-              "id": "d9e6c31b-d2b8-4738-b534-b0e69dbd6d54",
+              "id": "954953ca-6b81-4b26-a436-1c0e859acfcf",
               "name": "supabase_url",
               "value": "https://jrovkkjxvzuzcpexdydy.supabase.co",
               "type": "string"
             },
             {
-              "id": "7f8a8662-8f65-4ffa-adbe-9fcf8de57365",
+              "id": "8ea5dfe3-9709-47e2-a072-d2a8402d1693",
               "name": "supabase_key",
               "value": "={{ $vars.SUPABASE_ANON_KEY }}",
               "type": "string"
             },
             {
-              "id": "22e59312-3730-48a6-8b7a-e0d4078cbbe5",
+              "id": "0fdaef62-15ff-4693-9dac-a23c70cb0998",
               "name": "bot_token",
               "value": "={{ $vars.TELEGRAM_BOT_TOKEN_GANCHOS }}",
               "type": "string"
             },
             {
-              "id": "d69da2b6-254f-4edf-a6e9-a9727508574f",
+              "id": "878e2ac1-b87a-45a8-89ff-98783ea62cdd",
               "name": "chat_id",
               "value": "={{ $vars.TELEGRAM_CHAT_ID }}",
               "type": "string"
             },
             {
-              "id": "a32254ca-ca8f-4787-aaef-a78cb96559ac",
+              "id": "bfdf857f-226a-4fb3-a225-139b887d6699",
               "name": "ig_token",
               "value": "={{ $vars.INSTAGRAM_TOKEN }}",
               "type": "string"
             },
             {
-              "id": "67d62ce9-b981-4369-81ee-8e887983a0cb",
+              "id": "9931756f-abc7-4144-a077-d157b3a5424f",
               "name": "api_base",
               "value": "https://graph.instagram.com/v21.0/me",
               "type": "string"
@@ -76,7 +76,7 @@
       }
     },
     {
-      "id": "84ab4e24-3339-4159-b43b-e8e8496a5b3f",
+      "id": "5405e1ee-f7af-4eed-b845-811c973963fc",
       "name": "Supabase – Buscar reel de hoy",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -109,10 +109,11 @@
           ]
         },
         "options": {}
-      }
+      },
+      "alwaysOutputData": true
     },
     {
-      "id": "d294b3d1-bf68-4701-9f8f-33c77f484dea",
+      "id": "47f2fc49-0ad4-48e4-9d86-95782fee4857",
       "name": "Code – Revisar reglas y preparar mensaje",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -125,7 +126,7 @@
       }
     },
     {
-      "id": "5fd9b31b-8943-4413-8ec8-e37c48c530f7",
+      "id": "130a267b-2075-4c1c-901b-97a3eb30d5aa",
       "name": "IF – ¿Bloqueado?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -142,7 +143,7 @@
           "combinator": "and",
           "conditions": [
             {
-              "id": "6f93a37a-5eaf-434f-a1a9-bc6479a1dbe5",
+              "id": "028fe7d0-1ce2-48e8-a231-d2026d40fe5d",
               "leftValue": "={{ $json.bloqueado }}",
               "rightValue": true,
               "operator": {
@@ -156,7 +157,7 @@
       }
     },
     {
-      "id": "57251b0f-f919-4a22-ab24-e17a10016e95",
+      "id": "3160b52a-c063-45c0-b529-3401d82b1082",
       "name": "Telegram – Aviso bloqueado",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -174,7 +175,7 @@
       }
     },
     {
-      "id": "bed1ecb3-ea28-4bd3-8096-08534bfee7c7",
+      "id": "a4bd3428-e67a-4119-b7de-d0f0c442c05e",
       "name": "Supabase – Marcar bloqueado",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -213,7 +214,7 @@
       }
     },
     {
-      "id": "7afb3d90-ec31-4e35-a8ce-4adabf1e7614",
+      "id": "cc5ff897-e2fe-4b95-a35f-bae90ebb3d9c",
       "name": "Telegram – Pedir aprobación",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -231,7 +232,7 @@
       }
     },
     {
-      "id": "1e4ac837-dbd3-4481-8271-247ff994b340",
+      "id": "1fecce5b-19ca-4a30-a6af-15d18c53053c",
       "name": "Supabase – Marcar en revisión",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -270,7 +271,7 @@
       }
     },
     {
-      "id": "fae40207-b3a7-4c5b-8189-a2bf2e887d53",
+      "id": "7b69c161-78f6-4a9f-ab02-09028c14b410",
       "name": "Telegram Trigger – Ganchos",
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1.2,
@@ -284,10 +285,10 @@
         ],
         "additionalFields": {}
       },
-      "webhookId": "26fdd91c-8341-4b28-847c-ad51022b3ab7"
+      "webhookId": "11e7a9f7-3d71-4622-a4bb-f9add83a3378"
     },
     {
-      "id": "3e15d46e-42cb-4a72-9c53-4115429efc79",
+      "id": "2bb096f1-3d3b-4ed0-8993-5868cb4e7e10",
       "name": "Code – Extraer acción",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -300,7 +301,7 @@
       }
     },
     {
-      "id": "2f78a97d-2bd4-493b-bad9-19c0ede33a83",
+      "id": "adf588b0-1153-45e0-a8fc-6e6b6ffcd1a1",
       "name": "Config botones",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -312,37 +313,37 @@
         "assignments": {
           "assignments": [
             {
-              "id": "806c91c3-078c-4fb2-abb9-5b728bb88bed",
+              "id": "89ea156f-6549-45b6-8f99-74f74eebc8ab",
               "name": "supabase_url",
               "value": "https://jrovkkjxvzuzcpexdydy.supabase.co",
               "type": "string"
             },
             {
-              "id": "44a0db32-5e49-481b-bf96-0f74aa3f87d5",
+              "id": "7526a381-ac6c-4b7d-b14a-3bf4b1b37cf9",
               "name": "supabase_key",
               "value": "={{ $vars.SUPABASE_ANON_KEY }}",
               "type": "string"
             },
             {
-              "id": "e103da0a-9642-4bb6-9041-ad5f40f4d86f",
+              "id": "c76f5e3e-77ca-46be-8ae8-d98cbee6ab53",
               "name": "bot_token",
               "value": "={{ $vars.TELEGRAM_BOT_TOKEN_GANCHOS }}",
               "type": "string"
             },
             {
-              "id": "0adc45b8-e65a-45c9-ba84-ba5c2bf8c78b",
+              "id": "67622b96-99b1-43fd-a121-bddc9026a8f9",
               "name": "chat_id",
               "value": "={{ $vars.TELEGRAM_CHAT_ID }}",
               "type": "string"
             },
             {
-              "id": "fd1dd8c2-835a-4800-9b71-1334b52be96d",
+              "id": "7c8bf8a8-5392-4df5-b3ac-59c6006f64d5",
               "name": "ig_token",
               "value": "={{ $vars.INSTAGRAM_TOKEN }}",
               "type": "string"
             },
             {
-              "id": "9f5eeab0-2b25-434f-8722-940fb2bb378f",
+              "id": "6013f03a-63af-48c8-8ec0-cdd204986357",
               "name": "api_base",
               "value": "https://graph.instagram.com/v21.0/me",
               "type": "string"
@@ -354,7 +355,7 @@
       }
     },
     {
-      "id": "46d9b560-19b0-4c5d-a622-4b9ced65e918",
+      "id": "7414d054-b3fd-456b-adad-e66e7527349f",
       "name": "IF – ¿Aprobado?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -371,7 +372,7 @@
           "combinator": "and",
           "conditions": [
             {
-              "id": "eb428112-dd8b-4ab6-bbca-ffd9989af6b8",
+              "id": "a4d1d58e-35be-4606-8d8f-2a1da998c35a",
               "leftValue": "={{ $json.action }}",
               "rightValue": "approve",
               "operator": {
@@ -385,7 +386,7 @@
       }
     },
     {
-      "id": "144aae65-53d8-4368-9843-4ffa4a055b65",
+      "id": "e18cbf53-ee39-4e9d-847c-976b45658809",
       "name": "Supabase – Marcar aprobado por Esther",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -424,7 +425,7 @@
       }
     },
     {
-      "id": "5e65095a-e716-450a-97b7-b72cc96190fb",
+      "id": "395ecbda-5109-45b6-9553-03050ce3b051",
       "name": "Telegram – Responder botón (ok)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -442,7 +443,7 @@
       }
     },
     {
-      "id": "5ebd0979-7518-486d-979d-c0087f2f04c5",
+      "id": "245e9d5c-0f9a-4d2c-a150-1cd138465ff1",
       "name": "Telegram – Confirmación aprobado",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -460,7 +461,7 @@
       }
     },
     {
-      "id": "8b345f69-a5d3-4dc5-b1ac-df33c7c50bf9",
+      "id": "7d8e2861-d364-45e1-8514-65a12ae19188",
       "name": "Supabase – Volver a borrador",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -499,7 +500,7 @@
       }
     },
     {
-      "id": "899e91cf-814f-4cb2-84e5-46a611eae32a",
+      "id": "e504452d-aeed-4608-81e6-b886d816eb1a",
       "name": "Telegram – Responder botón (no)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -517,7 +518,7 @@
       }
     },
     {
-      "id": "4865912d-c0f1-458b-9ca0-19095329693e",
+      "id": "f5456dc7-dded-4286-9f56-2ca3d127012d",
       "name": "Telegram – Confirmación rechazo",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -535,7 +536,7 @@
       }
     },
     {
-      "id": "bfa8f0d0-0ec0-4eed-ad53-4a8251bad975",
+      "id": "0f81798b-caa6-4594-9b27-bb7f6b68a04f",
       "name": "Schedule – Publicación 13:00",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
@@ -555,7 +556,7 @@
       }
     },
     {
-      "id": "564a5bcc-0f26-42b9-be64-c2866d0d204b",
+      "id": "ad1081d3-93b9-4d89-b95b-837a3edf94a6",
       "name": "Config 13h",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -567,37 +568,37 @@
         "assignments": {
           "assignments": [
             {
-              "id": "0c89b032-fa72-4e3e-a5d9-a1e453c4bd64",
+              "id": "5f72e85d-ec8a-4e34-a963-855cc3a3b10f",
               "name": "supabase_url",
               "value": "https://jrovkkjxvzuzcpexdydy.supabase.co",
               "type": "string"
             },
             {
-              "id": "e72c2879-5451-4273-9daf-128eb746e1ef",
+              "id": "c983b2e9-8e23-4036-b028-0570db044837",
               "name": "supabase_key",
               "value": "={{ $vars.SUPABASE_ANON_KEY }}",
               "type": "string"
             },
             {
-              "id": "de3719bd-168e-46d3-8db8-0d73efcb17f9",
+              "id": "426db683-022e-484e-a9be-ee0f3d581915",
               "name": "bot_token",
               "value": "={{ $vars.TELEGRAM_BOT_TOKEN_GANCHOS }}",
               "type": "string"
             },
             {
-              "id": "457a9d29-4cde-48de-9970-c6417bc545a4",
+              "id": "161c7010-bc3c-44b5-af2d-664b21ce6711",
               "name": "chat_id",
               "value": "={{ $vars.TELEGRAM_CHAT_ID }}",
               "type": "string"
             },
             {
-              "id": "ee9432a0-bed4-4db5-b4d7-6eed33cefd92",
+              "id": "03096093-1e20-4e4a-899b-f1589cd67aa5",
               "name": "ig_token",
               "value": "={{ $vars.INSTAGRAM_TOKEN }}",
               "type": "string"
             },
             {
-              "id": "b3f3be07-7a9c-46af-9076-4d1bf4cb3959",
+              "id": "1d1952ba-1f34-45f7-ad33-37a3a6c7aa7b",
               "name": "api_base",
               "value": "https://graph.instagram.com/v21.0/me",
               "type": "string"
@@ -609,7 +610,7 @@
       }
     },
     {
-      "id": "6fdc12f8-d861-4426-9934-1d8b0be98156",
+      "id": "8a0f2ef2-260c-4b3d-bd39-ba361d8cd6d6",
       "name": "Supabase – Buscar aprobado de hoy",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -642,10 +643,11 @@
           ]
         },
         "options": {}
-      }
+      },
+      "alwaysOutputData": true
     },
     {
-      "id": "e3d68aaf-2a67-4136-9282-523733ab4928",
+      "id": "d6f34b21-a2a0-4e24-afd5-14d89f4f3424",
       "name": "Code – ¿Hay aprobado?",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -658,7 +660,7 @@
       }
     },
     {
-      "id": "b247d29b-db18-4ad3-b944-8688ee2d27f6",
+      "id": "d26103d6-9ad5-4579-8250-75469d84f074",
       "name": "IF – ¿Hay aprobado?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -675,7 +677,7 @@
           "combinator": "and",
           "conditions": [
             {
-              "id": "2c87d077-a474-4b3c-805b-b612e48466b6",
+              "id": "3606031d-921a-4d2c-9a49-4a5fd9dc17ca",
               "leftValue": "={{ $json.hay }}",
               "rightValue": true,
               "operator": {
@@ -689,7 +691,7 @@
       }
     },
     {
-      "id": "520af525-2047-4b9c-8a29-b1b58849f714",
+      "id": "0c0c51e1-6a02-4537-8f57-c2d97e1f52ba",
       "name": "IG – Crear Reel",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -707,7 +709,7 @@
       }
     },
     {
-      "id": "e3b541ec-33e6-4703-9997-fe38c8f9a1b6",
+      "id": "b6edbbc3-a1a3-4347-b184-dd01abcd7475",
       "name": "Esperar 90s",
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
@@ -719,10 +721,10 @@
         "amount": 90,
         "unit": "seconds"
       },
-      "webhookId": "a129283a-5525-49ff-bc44-1ca421707049"
+      "webhookId": "1119601b-d3f1-4fbc-bc3a-d19f94840561"
     },
     {
-      "id": "8d790176-f3e8-40ff-9d55-153c37a8f7ca",
+      "id": "0a585fd1-5a56-42da-b21b-4e2a120bc6e8",
       "name": "IG – Publicar Reel",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -740,7 +742,7 @@
       }
     },
     {
-      "id": "0dac9c64-fabf-4f80-8aee-5ea9b0b4922c",
+      "id": "43496d83-fbfe-4641-95f9-ef8506806e7e",
       "name": "Supabase – Marcar publicado",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -779,7 +781,7 @@
       }
     },
     {
-      "id": "18c477a5-7d1e-436b-a335-8a2ae6004915",
+      "id": "0612fc72-39ef-45d6-b7d1-8df453edca65",
       "name": "Telegram – Confirmación publicado",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -797,7 +799,7 @@
       }
     },
     {
-      "id": "91cb0492-8033-4502-bdb6-949b0d9c2ac4",
+      "id": "3233caf7-6700-4d67-8510-48df1e018307",
       "name": "Supabase – Buscar pendiente de hoy",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -830,10 +832,11 @@
           ]
         },
         "options": {}
-      }
+      },
+      "alwaysOutputData": true
     },
     {
-      "id": "be6d49e1-525e-4786-bad4-4fd60dd51c7d",
+      "id": "9708af09-fdc7-4986-951c-cb4d05d98a29",
       "name": "Code – Mensaje sin aprobación",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -846,7 +849,7 @@
       }
     },
     {
-      "id": "592ba42f-df88-4b5b-a89a-27290d242aef",
+      "id": "88da2749-09b9-448f-bae4-c7945045c553",
       "name": "Telegram – Repetir aviso sin aprobación",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,

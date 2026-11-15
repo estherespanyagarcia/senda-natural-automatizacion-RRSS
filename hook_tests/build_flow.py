@@ -29,7 +29,7 @@ def sb_get(name,x,y,cfgnode,filt):
     ref="$('%s').first().json"%cfgnode
     return add(name,"n8n-nodes-base.httpRequest",4.2,x,y,{"method":"GET",
       "url":"={{ %s.supabase_url }}/rest/v1/hook_tests?%s&select=*&limit=1"%(ref,filt),
-      "sendHeaders":True,"headerParameters":sbheaders(ref),"options":{}})
+      "sendHeaders":True,"headerParameters":sbheaders(ref),"options":{}},alwaysOutputData=True)
 def sb_patch(name,x,y,cfgnode,idea_expr,body_expr):
     ref="$('%s').first().json"%cfgnode
     return add(name,"n8n-nodes-base.httpRequest",4.2,x,y,{"method":"PATCH",
