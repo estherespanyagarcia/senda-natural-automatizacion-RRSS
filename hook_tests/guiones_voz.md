@@ -12,4 +12,4 @@ Mensajes de Telegram: empiezan por «Test X/7». Reglas comunes: voz de siempre 
 | 6 | 21-nov | sorpresa | 9 s (plano de 9 s) | Esa luz del ascensor que no perdona. Y dice más de tu día que de tu piel. |
 | 7 | 22-nov | contracorriente | 7-8 s (solo este de la serie de 3) | Cuidarte no es un lujo. Es lo primero que dejas para después. |
 
-Leyenda de cada reel: renglón 1 = gancho; renglón 2 = «Haz tu diagnóstico de piel gratuito en www.sendanatural.net · Senda Natural». Sin hashtags.
+Leyenda de cada reel: renglón 1 = gancho; renglón 2 = «Haz tu análisis de piel gratuito en www.sendanatural.net · Senda Natural». Sin hashtags.
