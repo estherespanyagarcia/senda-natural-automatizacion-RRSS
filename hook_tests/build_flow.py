@@ -135,12 +135,20 @@ const mensaje=`<b>Test ${r.idea}/7</b>\nA las 13:00 NO hay aprobación de la ide
 return [{json:{...cfg,idea:r.idea,mensaje,aprobable:!!r.video_url&&r.status!=='bloqueado_reglas'}}];
 """})
 D="$('Code – Mensaje sin aprobación').first().json"
-tg("Telegram – Repetir aviso sin aprobación",1540,900,"Config 13h","sendMessage","{chat_id:%s.chat_id,text:%s.mensaje,parse_mode:'HTML',...(%s.aprobable?{reply_markup:%s}:{})}"%(D,D,D,KB%(D+".idea",D+".idea")))
+tg("Telegram – Repetir aviso sin aprobación",1540,900,"Config 13h","sendMessage","Object.assign({chat_id:%s.chat_id,text:%s.mensaje,parse_mode:'HTML'},%s.aprobable?{reply_markup:%s}:{})"%(D,D,D,KB%(D+".idea",D+".idea")))
 link("Schedule – Publicación 13:00","Config 13h"); link("Config 13h","Supabase – Buscar aprobado de hoy"); link("Supabase – Buscar aprobado de hoy","Code – ¿Hay aprobado?"); link("Code – ¿Hay aprobado?","IF – ¿Hay aprobado?")
 link("IF – ¿Hay aprobado?","IG – Crear Reel",0); link("IF – ¿Hay aprobado?","Supabase – Buscar pendiente de hoy",1)
 link("IG – Crear Reel","Esperar 90s"); link("Esperar 90s","IG – Publicar Reel"); link("IG – Publicar Reel","Supabase – Marcar publicado"); link("Supabase – Marcar publicado","Telegram – Confirmación publicado")
 link("Supabase – Buscar pendiente de hoy","Code – Mensaje sin aprobación"); link("Code – Mensaje sin aprobación","Telegram – Repetir aviso sin aprobación")
 
+# n8n corta la expresión en el primer "}}": separar llaves consecutivas dentro de {{ }}
+for n in nodes:
+    p=n.get("parameters",{})
+    for k,v in list(p.items()):
+        if k=="jsonBody" and isinstance(v,str) and v.startswith("={{ ") and v.endswith(" }}"):
+            inner=v[4:-3]
+            while "}}" in inner: inner=inner.replace("}}","} }")
+            p[k]="={{ "+inner+" }}"
 wf={"name":"Ganchos Prueba · aviso 12:00 + aprobación + publicación 13:00","nodes":nodes,"connections":conns,"settings":{"executionOrder":"v1","timezone":"Europe/Madrid"}}
 json.dump(wf,open("ganchos_prueba_workflow.json","w"),ensure_ascii=False,indent=2)
 print(len(nodes),"nodos")
