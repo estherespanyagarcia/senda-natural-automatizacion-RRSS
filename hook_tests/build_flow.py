@@ -118,7 +118,7 @@ P="$('Code – ¿Hay aprobado?').first().json"
 tok=P+".ig_token.replace(/^Bearer\\s*/i,'')"
 add("IG – Crear Reel","n8n-nodes-base.httpRequest",4.2,1100,720,{"method":"POST",
   "url":"={{ %s.api_base }}/media"%P,"sendBody":True,"specifyBody":"json",
-  "jsonBody":"={{ JSON.stringify({media_type:'REELS',video_url:%s.video_url,caption:%s.caption,share_to_feed:true,access_token:%s,...(%s.portada_url?{cover_url:%s.portada_url}:{})}) }}"%(P,P,tok,P,P),"options":{}})
+  "jsonBody":"={{ JSON.stringify(Object.assign({media_type:'REELS',video_url:%s.video_url,caption:%s.caption,share_to_feed:true,access_token:%s},%s.portada_url?{cover_url:%s.portada_url}:{})) }}"%(P,P,tok,P,P),"options":{}})
 add("Esperar 90s","n8n-nodes-base.wait",1.1,1320,720,{"amount":90,"unit":"seconds"},webhookId=nid())
 add("IG – Publicar Reel","n8n-nodes-base.httpRequest",4.2,1540,720,{"method":"POST","url":"={{ %s.api_base }}/media_publish"%P,"sendBody":True,"specifyBody":"json",
   "jsonBody":"={{ JSON.stringify({creation_id:$('IG – Crear Reel').first().json.id,access_token:%s}) }}"%tok,"options":{}})
