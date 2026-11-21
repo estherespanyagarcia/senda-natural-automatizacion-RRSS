@@ -58,7 +58,7 @@ function revisar(r){
 }
 """
 # ---------- CADENA A: 12:00 aviso ----------
-add("Schedule – Aviso 12:00","n8n-nodes-base.scheduleTrigger",1.2,0,0,{"rule":{"interval":[{"field":"cronExpression","expression":"0 12 16-22 11 *"}]}})
+add("Schedule – Aviso 12:00","n8n-nodes-base.scheduleTrigger",1.2,0,0,{"rule":{"interval":[{"field":"cronExpression","expression":"0 12 16-30 11 *"}]}})
 cfg("Config 12h",220,0)
 today="$now.setZone('Europe/Madrid').toFormat('yyyy-MM-dd')"
 sb_get("Supabase – Buscar reel de hoy",440,0,"Config 12h","fecha_publicacion=eq.{{ %s }}&status=in.(borrador,en_revision)"%today)
@@ -104,7 +104,7 @@ link("Supabase – Marcar aprobado por Esther","Telegram – Responder botón (o
 link("Supabase – Volver a borrador","Telegram – Responder botón (no)"); link("Telegram – Responder botón (no)","Telegram – Confirmación rechazo")
 
 # ---------- CADENA C: 13:00 publicar ----------
-add("Schedule – Publicación 13:00","n8n-nodes-base.scheduleTrigger",1.2,0,800,{"rule":{"interval":[{"field":"cronExpression","expression":"0 13 16-22 11 *"}]}})
+add("Schedule – Publicación 13:00","n8n-nodes-base.scheduleTrigger",1.2,0,800,{"rule":{"interval":[{"field":"cronExpression","expression":"0 13 16-30 11 *"}]}})
 cfg("Config 13h",220,800)
 sb_get("Supabase – Buscar aprobado de hoy",440,800,"Config 13h","fecha_publicacion=eq.{{ %s }}&status=eq.aprobado_por_esther"%today)
 add("Code – ¿Hay aprobado?","n8n-nodes-base.code",2,660,800,{"jsCode":r"""
@@ -140,6 +140,23 @@ link("Schedule – Publicación 13:00","Config 13h"); link("Config 13h","Supabas
 link("IF – ¿Hay aprobado?","IG – Crear Reel",0); link("IF – ¿Hay aprobado?","Supabase – Buscar pendiente de hoy",1)
 link("IG – Crear Reel","Esperar 90s"); link("Esperar 90s","IG – Publicar Reel"); link("IG – Publicar Reel","Supabase – Marcar publicado"); link("Supabase – Marcar publicado","Telegram – Confirmación publicado")
 link("Supabase – Buscar pendiente de hoy","Code – Mensaje sin aprobación"); link("Code – Mensaje sin aprobación","Telegram – Repetir aviso sin aprobación")
+
+
+# ---------- CADENA D: recordatorio 12:45 si sigue sin aprobar ----------
+add("Schedule – Recordatorio 12:45","n8n-nodes-base.scheduleTrigger",1.2,0,1200,{"rule":{"interval":[{"field":"cronExpression","expression":"45 12 16-30 11 *"}]}})
+cfg("Config 12h45",220,1200)
+sb_get("Supabase – Buscar sin aprobar (12:45)",440,1200,"Config 12h45","fecha_publicacion=eq.{{ %s }}&status=eq.en_revision"%today)
+add("Code – Mensaje recordatorio","n8n-nodes-base.code",2,660,1200,{"jsCode":PRE+r"""
+const cfg=$('Config 12h45').first().json;
+const rows=$input.all().map(i=>i.json).filter(r=>r&&r.idea);
+if(!rows.length) return [];
+const r=rows[0];
+const mensaje=`<b>Test ${r.idea}/7 · ⏰ Quedan 15 minutos</b>\nLa idea ${r.idea} sigue sin aprobar. Si no la apruebas antes de las 13:00 (Europe/Madrid), hoy no sale.\n\n<b>Gancho:</b> ${esc(r.gancho)}\n\n<a href="${r.video_url}">Ver vídeo</a>`;
+return [{json:{...cfg,idea:r.idea,mensaje}}];
+"""})
+D="$('Code – Mensaje recordatorio').first().json"
+tg("Telegram – Recordatorio 12:45",880,1200,"Code – Mensaje recordatorio","sendMessage","{chat_id:%s.chat_id,text:%s.mensaje,parse_mode:'HTML',reply_markup:%s}"%(D,D,KB%(D+".idea",D+".idea")))
+link("Schedule – Recordatorio 12:45","Config 12h45"); link("Config 12h45","Supabase – Buscar sin aprobar (12:45)"); link("Supabase – Buscar sin aprobar (12:45)","Code – Mensaje recordatorio"); link("Code – Mensaje recordatorio","Telegram – Recordatorio 12:45")
 
 # n8n corta la expresión en el primer "}}": separar llaves consecutivas dentro de {{ }}
 for n in nodes:
