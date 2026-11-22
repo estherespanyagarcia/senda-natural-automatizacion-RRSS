@@ -90,3 +90,8 @@ Reglas de la usuaria. No negociables. Aplican a todo reel o vídeo, cada día.
 - La audiencia principal son MUJERES: la portada debe hablarles a ellas con un rostro/gesto femenino real y reconocible (espejo, mirarse la piel, bolso, reunión), NO con objetos solos como herramientas (la portada de martillo y tornillo del día 14 se descartó: repetía el vídeo y no llamaba la atención).
 - Zona segura del grid: el perfil recorta 12,5 % por arriba y por abajo (9:16 -> 3:4). El texto va entre el 16 % y el 34 % de la altura; el primer renglón nunca por encima del 14 %.
 
+## 13. Ritmo y retención (norma de la usuaria, 22-nov): MÁS CORTES Y FLASHES
+- Todo reel debe sentirse rápido: un corte cada ~1 s (unos 40-50 cortes en un reel de 40 s), nunca planos largos ni pocos frames. Un plano quieto aburre y da paso al scroll.
+- Recursos obligatorios en cada corte: encuadre distinto (general / primer plano / detalle), zoom animado (push-in de 12-25 %), micro-vibración y un flash (destello blanco/cálido de ~0,1 s con subida de saturación) cada 3 cortes y al inicio de cada escena. Ritmo rápido en el gancho y más tranquilo solo en la herida/cierre.
+- Si no hay créditos para generar planos nuevos, re-montar el material existente con ffmpeg (trim + scale/crop con `eval=frame` + `eq` para el flash + concat) y subtitular después con OpusClip. Orden: montar cortes → subir a CloudFront → OpusClip → export → CloudFront.
+- Aplica a TODOS los reels siguientes, también a los ganchos y a los reels sin ella.

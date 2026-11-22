@@ -72,6 +72,8 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 - Aviso de aprobacion de produccion diaria: el flujo de las 10:00 funciona (Pedir Aprobacion en verde el 19-nov); si no llega, comprobar el `chat.id` de la salida del nodo y que se mira el chat del bot correcto.
 - Videos de reel con subtitulos: OpusClip con `data-no-timeline` en el contenedor raiz del index.html; voz normalizada a -23 dB y musica a 0,19. Movimiento: un reel de ~37 s necesita ~17 planos, nunca pocos planos estaticos.
 
+- NORMA DE RITMO (22-nov, usuaria): todo reel con cortes cada ~1 s (40-50 cortes en 40 s), zoom animado, vibración y flashes cada 3 cortes. Nunca pocos planos. Detalle y receta en `.claude/skills/senda-reels/SKILL.md`, seccion 13.
+
 ## Portadas de reels y variedad del feed (8-nov)
 - Columna nueva `content_calendar.portada_url` (portada 9:16 del reel). Regla completa en la skill senda-reels, seccion 12. Portada del dia 14 ya hecha. Pendiente en n8n: añadir `portada_url` al `select` de "Supabase – Buscar Aprobados" y el campo `cover_url` en "IG – Crear Reel"; probarlo con el dia 14 (10-nov).
 - Carruseles: alternar portada con FOTO cinematografica (ej. dia 12) y portada solo tipografia; mismas paleta, tipografia e icono para mantener la marca. Carrusel dia 12 (8-nov): 5 slides 4:5, foto en la slide 1, Canva DAHaU4Ai2Ro.
