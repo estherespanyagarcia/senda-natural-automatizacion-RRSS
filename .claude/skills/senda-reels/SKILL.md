@@ -92,6 +92,13 @@ Reglas de la usuaria. No negociables. Aplican a todo reel o vídeo, cada día.
 
 ## 13. Ritmo y retención (norma de la usuaria, 22-nov): MÁS CORTES Y FLASHES
 - Todo reel debe sentirse rápido: un corte cada ~1 s (unos 40-50 cortes en un reel de 40 s), nunca planos largos ni pocos frames. Un plano quieto aburre y da paso al scroll.
-- Recursos obligatorios en cada corte: encuadre distinto (general / primer plano / detalle), zoom animado (push-in de 12-25 %), micro-vibración y un flash (destello blanco/cálido de ~0,1 s con subida de saturación) cada 3 cortes y al inicio de cada escena. Ritmo rápido en el gancho y más tranquilo solo en la herida/cierre.
-- Si no hay créditos para generar planos nuevos, re-montar el material existente con ffmpeg (trim + scale/crop con `eval=frame` + `eq` para el flash + concat) y subtitular después con OpusClip. Orden: montar cortes → subir a CloudFront → OpusClip → export → CloudFront.
+- Recursos en cada corte: encuadre distinto y movimiento de cámara REAL (ver sección 14). NO usar flashes ni destellos (la usuaria los rechazó el 22-nov). Ritmo rápido en el gancho y más tranquilo solo en la herida/cierre.
+- Si no hay créditos para generar planos nuevos, NO re-montar el mismo material con efectos: avisar a la usuaria y esperar su decisión (sección 14). Orden de producción: shot list → planos nuevos → montaje → subir a CloudFront → OpusClip → export → CloudFront.
 - Aplica a TODOS los reels siguientes, también a los ganchos y a los reels sin ella.
+
+## 14. Actuar siempre como director de fotografía y montaje (norma de la usuaria, 22-nov)
+- Pensar y decidir como un director de fotografía y montador: plano a plano, con una intención visual por cada frase del guion.
+- Pedir MÁS PLANOS NUEVOS con acción y movimiento reales (dolly, travelling, push-in, seguimiento, cenital, cámara lenta), no reutilizar los mismos 3 planos recortados ni añadir efectos. "Más movimiento" significa más acción dentro de la escena, NO flashes ni destellos sobre el vídeo.
+- Preparar antes una lista de planos (shot list) alineada con la locución: tipo de plano, lente, movimiento, acción y duración. Variar tamaños de plano (general, medio, primer plano, detalle) y ángulos.
+- Cortes cada 1-2 s con movimiento de cámara en cada plano; luz y atmósfera de cine (regla 0). Sin flashes ni efectos gratuitos.
+- Si faltan créditos para generar los planos nuevos, avisar ANTES de montar nada y no sustituirlos por recortes del mismo material; ofrecer recarga o la vía alternativa y dejar que decida la usuaria.
