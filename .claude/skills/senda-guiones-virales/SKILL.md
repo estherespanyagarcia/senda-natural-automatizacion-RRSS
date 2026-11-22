@@ -98,3 +98,16 @@ Fuentes: guías de creadores y herramientas (opinión de profesionales, no datos
 - Portada: una frase de dolor grande y legible dentro del recorte 4:5.
 
 **Cada guion nuevo registra en `notas`:** tipo de gancho, el dolor concreto, qué señal busca (comentario / guardado / envío) y a quién se lo enviaría la espectadora.
+
+## Formatos virales y no repetir (norma 22-nov, usuaria)
+Investigación en guías de creadores 2026 (opinión de profesionales, sin datos oficiales): los formatos que más se repiten en Reels virales, de cualquier nicho, son:
+1. **Lista enumerada**: «Tres cosas que [haces / guardas / dejas de hacer] y que…». Se enumeran en voz y en pantalla (una, dos, tres) y se cierra con un giro final («y hay una cuarta: tú»). Ejemplo ya producido: día 29.
+2. **Deja de hacer…**: corrección que la espectadora puede comprobar en su propio hábito.
+3. **POV**: «POV: llevas dos años guardando la mascarilla para cuando haya algo».
+4. **Nadie te cuenta…**: información interna. OJO: ya muy usado en Senda (días 2, 3, 4, idea 2); usar solo si es una idea nueva.
+5. **Experimento / tiempo**: «Probé X durante Y» (solo si es real; nunca inventado).
+6. **Mito / error común** y **pregunta incómoda**.
+- Regla de variedad: no usar el mismo formato dos días seguidos; no abrir con «Esa…» ni «Nadie te…» si ya se usó en los últimos 10 días.
+- Antes de producir: consulta SQL de arranques ya usados (`content_calendar.guion` línea del HOOK y `hook_tests.gancho`) y lista de escenas ya usadas. Anotar en `notas` la lista de planos del reel para poder auditarlos.
+- Planos prohibidos por repetición: espejo de baño, tarro/bote en primer plano como protagonista, móvil enviando el mensaje, espejo de ascensor, foto antigua, cajón con tarro, cena familiar donde sirve. Usar escenas nuevas (coche, peluquería, escaparate, parque, café, cocina, calle, etc.).
+Fuentes: [Captain Hook](https://captain-hook.ai/article/reels-hook-formats-2026), [OpusClip blog](https://www.opus.pro/blog/instagram-reels-hook-formulas), [UGC Copilot](https://ugccopilot.ai/blog/viral-hooks-that-convert/).
