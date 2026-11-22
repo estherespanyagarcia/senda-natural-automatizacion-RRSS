@@ -77,3 +77,24 @@ Lectura dudosa en los apuntes (confirmar con la usuaria): "gancho cotilla", "gan
 - El gancho (primeros 0,6 s) es lo más importante: elegir entre los 14 tipos el que más duela o más intrigue, probar 3 versiones y quedarse con la más fuerte. Registrar tipo y versiones descartadas en `notas`.
 - Estructura: dolor concreto → "te veo" (validación) → giro/moraleja de experta → CTA clara.
 - Límites de marca: sin promesas de salud ni rejuvenecimiento, sin cifras ni testimonios inventados, sin "rutina", sin productos por nombre. Doler no es humillar: se valida, no se culpa.
+
+## Qué atrae más en perfiles de IG (investigación 22-nov-2026) y cómo aplicarlo
+Fuentes: guías de creadores y herramientas (opinión de profesionales, no datos oficiales de Instagram) + lo que Mosseri ha dicho públicamente: las señales principales son tiempo de visualización, likes por alcance y ENVÍOS (DM) por alcance. Revisar de vez en cuando; los pesos exactos no son públicos.
+
+**Guiones (hook + estructura)**
+1. Gancho que nombra un síntoma o escena concreta, no la categoría ("cuando te miras en el espejo y levantas la mejilla con la mano", no "problemas de piel").
+2. Mito/error + contradicción: el que más comentarios genera (mejor que los que solo buscan likes). Sin atacar marcas ni personas.
+3. Aviso/urgencia ("antes de comprar tu próxima crema, mira esto"): empuja a guardar.
+4. Contenido de referencia (criterios, señales, qué mirar) que se guarda para consultarlo.
+5. Contenido "enviable": una frase tan exacta que piensas en alguien y se lo mandas ("esto es para la que…"). Escribir pensando en el ENVÍO, no solo en el like.
+6. Autenticidad humana sobre pulido de anuncio: tono de conversación, imperfección real, voz de experta cercana.
+7. Se entiende sin sonido: subtítulos grandes y llamativos (ya en el flujo OpusClip).
+8. Retención: primer fotograma con acción y texto en pantalla, cortes cada 1-2 s, el giro importante al final.
+
+**Imágenes / planos**
+- Primer fotograma con rostro/gesto reconocible y emoción real, o una acción clara con las manos; nunca un plano estático decorativo.
+- Prueba visual en los primeros segundos (antes/después de situación, no de resultados médicos), texturas y primeros planos.
+- Planos nuevos con movimiento real (norma de ritmo/dirección), luz cálida de cine, vertical 9:16 con zona segura 4:5.
+- Portada: una frase de dolor grande y legible dentro del recorte 4:5.
+
+**Cada guion nuevo registra en `notas`:** tipo de gancho, el dolor concreto, qué señal busca (comentario / guardado / envío) y a quién se lo enviaría la espectadora.
