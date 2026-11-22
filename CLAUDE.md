@@ -75,6 +75,9 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 - NORMA DE RITMO (22-nov, usuaria): todo reel con cortes cada 1-2 s y planos NUEVOS con movimiento y acción reales. NADA de flashes ni recortes del mismo material. Nunca pocos planos. Detalle en `.claude/skills/senda-reels/SKILL.md`, secciones 13 y 14.
 - NORMA DE DIRECCION (22-nov, usuaria): actuar SIEMPRE como director de fotografía y montaje: shot list por frase del guion, tamaños y ángulos variados, movimiento de cámara en cada plano, luz de cine. Si faltan créditos, avisar antes de montar y no sustituir por efectos. Ver skill senda-reels, seccion 14.
 
+- DECISION DE FORMATO (22-nov, usuaria): a partir de ahora SOLO REELS. Los carruseles no dan resultados: no crear carruseles, foto quotes ni stories nuevos. Lo que ya esta publicado o creado se queda; lo nuevo es siempre reel.
+- SEMANA MENOPAUSIA (avatar 42 Gloria, Drive «Avatar 42. Gloria · Pérdida de estructura en menopausia»): dias 34-40 (30-nov a 6-dic), todos reels, en `pendiente` a la espera de planos nuevos (creditos Higgsfield). Frases de biologia pendientes de GC Rules (en `notas`).
+
 ## Portadas de reels y variedad del feed (8-nov)
 - Columna nueva `content_calendar.portada_url` (portada 9:16 del reel). Regla completa en la skill senda-reels, seccion 12. Portada del dia 14 ya hecha. Pendiente en n8n: añadir `portada_url` al `select` de "Supabase – Buscar Aprobados" y el campo `cover_url` en "IG – Crear Reel"; probarlo con el dia 14 (10-nov).
 - Carruseles: alternar portada con FOTO cinematografica (ej. dia 12) y portada solo tipografia; mismas paleta, tipografia e icono para mantener la marca. Carrusel dia 12 (8-nov): 5 slides 4:5, foto en la slide 1, Canva DAHaU4Ai2Ro.
