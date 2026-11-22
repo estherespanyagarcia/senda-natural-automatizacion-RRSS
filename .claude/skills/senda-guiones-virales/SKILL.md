@@ -71,3 +71,9 @@ Lectura dudosa en los apuntes (confirmar con la usuaria): "gancho cotilla", "gan
 ## Compatibilidad con las reglas de Senda
 - Sin "rutina", sin "Ringana", sin cifras o plazos inventados, sin testimonios inventados, sin promesas de salud ni de rejuvenecimiento ("cómo rejuveneces…" del apunte se adapta a "cómo entendí…"). Firma "Tu asesora de piel · Senda Natural".
 - Cada guion nuevo registra en `notas` el tipo de gancho usado, para variar de uno a otro y no repetir dos días seguidos.
+
+## Máximo dolor + gancho lo más viral posible (norma 22-nov, usuaria)
+- Todo reel debe ser un vídeo viral: antes de escribir, identificar el DOLOR MÁS AGUDO de quien sufre ese tema concreto (la escena exacta: el espejo, la foto, el comentario ajeno, el momento del día) y escribir desde ahí, con sus propias palabras.
+- El gancho (primeros 0,6 s) es lo más importante: elegir entre los 14 tipos el que más duela o más intrigue, probar 3 versiones y quedarse con la más fuerte. Registrar tipo y versiones descartadas en `notas`.
+- Estructura: dolor concreto → "te veo" (validación) → giro/moraleja de experta → CTA clara.
+- Límites de marca: sin promesas de salud ni rejuvenecimiento, sin cifras ni testimonios inventados, sin "rutina", sin productos por nombre. Doler no es humillar: se valida, no se culpa.

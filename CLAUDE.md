@@ -133,3 +133,5 @@ Reels: `video_url` = URL de CloudFront (Higgsfield), `audio_url` = `elevenlabs:<
 
 ## Skill obligatoria para reels/vídeos
 Antes de producir o revisar cualquier reel o vídeo, leer `.claude/skills/senda-reels/SKILL.md` (La Investigadora en movimiento, escenas que ilustran el guion, voz siempre suya, subtítulos llamativos).
+
+- NORMA DE VIRALIDAD (22-nov, usuaria): todos los reels deben ser vídeos virales. El guion tiene que llegar al MÁXIMO DOLOR de las personas que sufren ese tema concreto (nombrar la escena, el gesto y la frase exacta que viven), y el gancho debe ser lo más viral posible (primeros 0,6 s). Sin promesas de salud, sin cifras inventadas, sin testimonios inventados. Detalle en `.claude/skills/senda-guiones-virales/SKILL.md`, sección "Máximo dolor".
