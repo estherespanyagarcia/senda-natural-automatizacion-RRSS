@@ -102,3 +102,8 @@ Reglas de la usuaria. No negociables. Aplican a todo reel o vídeo, cada día.
 - Preparar antes una lista de planos (shot list) alineada con la locución: tipo de plano, lente, movimiento, acción y duración. Variar tamaños de plano (general, medio, primer plano, detalle) y ángulos.
 - Cortes cada 1-2 s con movimiento de cámara en cada plano; luz y atmósfera de cine (regla 0). Sin flashes ni efectos gratuitos.
 - Si faltan créditos para generar los planos nuevos, avisar ANTES de montar nada y no sustituirlos por recortes del mismo material; ofrecer recarga o la vía alternativa y dejar que decida la usuaria.
+
+## 15. Productos siempre neutros (norma de la usuaria, 22-nov)
+- Botes, tarros, frascos y envases: lisos, mate, de color crema/blanco/vidrio, SIN etiqueta, texto, logo, grabado ni marca. Nunca un producto reconocible.
+- Prompt obligatorio cuando aparezca un envase: "plain blank matte jar, no label, no text, no logo, no printing, no embossing".
+- Revisar fotogramas antes de aceptar un plano; si aparece etiqueta o texto, regenerar solo ese plano.
