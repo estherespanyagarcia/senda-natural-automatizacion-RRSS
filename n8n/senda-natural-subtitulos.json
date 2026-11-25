@@ -1,0 +1,235 @@
+{
+  "name": "Senda Natural – Auto Subtítulos",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "senda-natural-subtitulos",
+        "responseMode": "onReceived",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "id": "sub-0001-4000-a001-000000000001",
+      "name": "Webhook – Subtítulos",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 300],
+      "webhookId": "senda-natural-subtitulos"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// ─────────────────────────────────────────────────────────────────────\n// Envía 4 renders a Shotstack (escenario stage = gratuito para test).\n// Cada render mezcla vídeo Higgsfield + voz ElevenLabs + subtítulos\n// en tipografía Senda Natural: DM Sans 500, crema #FAF6F0, fondo oscuro.\n//\n// Cambiar a https://api.shotstack.io/v1/render en producción.\n// ─────────────────────────────────────────────────────────────────────\n\nconst input = $input.first().json;\nconst data = input.body || input;\n\nconst SHOTSTACK_KEY = $vars.SHOTSTACK_API_KEY;\nconst SHOTSTACK_URL = 'https://api.shotstack.io/stage/render';\n\nconst pairs = [\n  { key: 'ig1',     video: data.ig1_video,     audio: data.ig1_audio },\n  { key: 'ig2',     video: data.ig2_video,     audio: data.ig2_audio },\n  { key: 'tiktok1', video: data.tiktok1_video, audio: data.tiktok1_audio },\n  { key: 'tiktok2', video: data.tiktok2_video, audio: data.tiktok2_audio },\n];\n\nconst buildPayload = (videoUrl, audioUrl) => ({\n  timeline: {\n    background: '#000000',\n    tracks: [\n      {\n        clips: [{\n          asset: {\n            type: 'video',\n            src: videoUrl,\n            volume: 0\n          },\n          start: 0,\n          length: 'auto',\n          fit: 'crop'\n        }]\n      },\n      {\n        clips: [{\n          asset: {\n            type: 'audio',\n            src: audioUrl,\n            volume: 1\n          },\n          start: 0,\n          length: 'auto'\n        }]\n      },\n      {\n        clips: [{\n          asset: {\n            type: 'caption',\n            src: audioUrl,\n            font: {\n              family: 'DM Sans',\n              size: 50,\n              color: '#FAF6F0ff',\n              weight: '500'\n            },\n            background: {\n              color: '#0E0D0Ab3',\n              borderRadius: 12,\n              padding: '12 18'\n            },\n            align: 'center',\n            position: 'bottomCenter',\n            offset: { y: 0.1 },\n            lineLength: 4,\n            lines: 1,\n            transition: { in: 'fade', out: 'fade' }\n          },\n          start: 0,\n          length: 'auto'\n        }]\n      }\n    ]\n  },\n  output: {\n    format: 'mp4',\n    resolution: 'hd',\n    aspectRatio: '9:16',\n    fps: 25\n  }\n});\n\nconst renderIds = {};\n\nfor (const { key, video, audio } of pairs) {\n  if (!video || !audio) {\n    renderIds[key] = null;\n    continue;\n  }\n\n  const res = await $helpers.httpRequest({\n    method: 'POST',\n    url: SHOTSTACK_URL,\n    headers: {\n      'x-api-key': SHOTSTACK_KEY,\n      'Content-Type': 'application/json'\n    },\n    body: buildPayload(video, audio)\n  });\n\n  renderIds[key] = res.response?.id || null;\n  await new Promise(r => setTimeout(r, 600));\n}\n\nreturn [{\n  json: {\n    dia: data.dia,\n    tema: data.tema,\n    ig1_video:     data.ig1_video,\n    ig2_video:     data.ig2_video,\n    tiktok1_video: data.tiktok1_video,\n    tiktok2_video: data.tiktok2_video,\n    ig1:     renderIds.ig1,\n    ig2:     renderIds.ig2,\n    tiktok1: renderIds.tiktok1,\n    tiktok2: renderIds.tiktok2\n  }\n}];"
+      },
+      "id": "sub-0002-4000-a002-000000000002",
+      "name": "Code – Enviar 4 Renders",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "amount": 150,
+        "unit": "seconds"
+      },
+      "id": "sub-0003-4000-a003-000000000003",
+      "name": "Esperar 150s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [700, 300],
+      "webhookId": "sub-wait-150s"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Verifica el estado de los 4 renders de Shotstack.\n// Retorna URLs si están listos, pendingCount=0 si todos completados.\n\nconst data = $input.first().json;\nconst SHOTSTACK_KEY = $vars.SHOTSTACK_API_KEY;\nconst BASE_URL = 'https://api.shotstack.io/stage/render';\nconst KEYS = ['ig1', 'ig2', 'tiktok1', 'tiktok2'];\n\nconst result = { ...data };\nlet pendingCount = 0;\n\nfor (const key of KEYS) {\n  const renderId = data[key];\n  if (!renderId) {\n    pendingCount++;\n    continue;\n  }\n\n  const res = await $helpers.httpRequest({\n    method: 'GET',\n    url: `${BASE_URL}/${renderId}`,\n    headers: { 'x-api-key': SHOTSTACK_KEY }\n  });\n\n  const { status, url } = res.response || {};\n\n  if (status === 'done' && url) {\n    result[`${key}_url`] = url;\n  } else if (status === 'failed') {\n    result[`${key}_error`] = `Render fallido: ${renderId}`;\n    pendingCount++;\n  } else {\n    pendingCount++;\n  }\n\n  await new Promise(r => setTimeout(r, 250));\n}\n\nresult.pendingCount = pendingCount;\nreturn [{ json: result }];"
+      },
+      "id": "sub-0004-4000-a004-000000000004",
+      "name": "Code – Verificar Renders",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [920, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "check-pending",
+              "leftValue": "={{ $json.pendingCount }}",
+              "rightValue": 0,
+              "operator": { "type": "number", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "sub-0005-4000-a005-000000000005",
+      "name": "¿Renders Listos?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1140, 300]
+    },
+    {
+      "parameters": {
+        "amount": 90,
+        "unit": "seconds"
+      },
+      "id": "sub-0006-4000-a006-000000000006",
+      "name": "Esperar 90s más",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [1360, 440],
+      "webhookId": "sub-wait-90s"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Segunda verificación de renders.\nconst data = $input.first().json;\nconst SHOTSTACK_KEY = $vars.SHOTSTACK_API_KEY;\nconst BASE_URL = 'https://api.shotstack.io/stage/render';\nconst KEYS = ['ig1', 'ig2', 'tiktok1', 'tiktok2'];\n\nconst result = { ...data };\nlet pendingCount = 0;\n\nfor (const key of KEYS) {\n  if (result[`${key}_url`]) continue;\n\n  const renderId = data[key];\n  if (!renderId) { pendingCount++; continue; }\n\n  const res = await $helpers.httpRequest({\n    method: 'GET',\n    url: `${BASE_URL}/${renderId}`,\n    headers: { 'x-api-key': SHOTSTACK_KEY }\n  });\n\n  const { status, url } = res.response || {};\n\n  if (status === 'done' && url) {\n    result[`${key}_url`] = url;\n  } else {\n    pendingCount++;\n  }\n\n  await new Promise(r => setTimeout(r, 250));\n}\n\nresult.pendingCount = pendingCount;\nreturn [{ json: result }];"
+      },
+      "id": "sub-0007-4000-a007-000000000007",
+      "name": "Code – Verificar Renders (2)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1580, 440]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "check-pending-2",
+              "leftValue": "={{ $json.pendingCount }}",
+              "rightValue": 0,
+              "operator": { "type": "number", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "sub-0008-4000-a008-000000000008",
+      "name": "¿Renders Listos? (2)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1800, 440]
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "output": "single"
+      },
+      "id": "sub-0009-4000-a009-000000000009",
+      "name": "Merge – Éxito",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [1360, 260]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://senda-natural.app.n8n.cloud/webhook/senda-natural-videos",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"dia\": {{ $json.dia }},\n  \"tema\": \"{{ $json.tema }}\",\n  \"ig1_url\": \"{{ $json.ig1_url }}\",\n  \"ig2_url\": \"{{ $json.ig2_url }}\",\n  \"tiktok1_url\": \"{{ $json.tiktok1_url }}\",\n  \"tiktok2_url\": \"{{ $json.tiktok2_url }}\"\n}",
+        "options": {}
+      },
+      "id": "sub-0010-4000-a010-000000000010",
+      "name": "HTTP – Trigger Pipeline Vídeos",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1580, 260]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{ $vars.TELEGRAM_BOT_TOKEN }}/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $vars.TELEGRAM_CHAT_ID }},\n  \"text\": \"🎬✨ <b>Subtítulos aplicados — Día {{ $json.dia }}</b>\\n\\n<i>{{ $json.tema }}</i>\\n\\nVídeos con subtítulos DM Sans·crema listos y enviados al pipeline de aprobación.\",\n  \"parse_mode\": \"HTML\"\n}",
+        "options": {}
+      },
+      "id": "sub-0011-4000-a011-000000000011",
+      "name": "Telegram – Subtítulos ✅",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1800, 260]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{ $vars.TELEGRAM_BOT_TOKEN }}/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $vars.TELEGRAM_CHAT_ID }},\n  \"text\": \"⚠️ <b>Error Auto Subtítulos — Día {{ $json.dia }}</b>\\n\\nShotstack no completó el render en 4 minutos.\\n\\nRenders pendientes: {{ $json.pendingCount }}\\n\\nRevisa: https://app.shotstack.io\",\n  \"parse_mode\": \"HTML\"\n}",
+        "options": {}
+      },
+      "id": "sub-0012-4000-a012-000000000012",
+      "name": "Telegram – Error Subtítulos",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2020, 440]
+    }
+  ],
+  "connections": {
+    "Webhook – Subtítulos": {
+      "main": [
+        [{ "node": "Code – Enviar 4 Renders", "type": "main", "index": 0 }]
+      ]
+    },
+    "Code – Enviar 4 Renders": {
+      "main": [
+        [{ "node": "Esperar 150s", "type": "main", "index": 0 }]
+      ]
+    },
+    "Esperar 150s": {
+      "main": [
+        [{ "node": "Code – Verificar Renders", "type": "main", "index": 0 }]
+      ]
+    },
+    "Code – Verificar Renders": {
+      "main": [
+        [{ "node": "¿Renders Listos?", "type": "main", "index": 0 }]
+      ]
+    },
+    "¿Renders Listos?": {
+      "main": [
+        [{ "node": "Merge – Éxito", "type": "main", "index": 0 }],
+        [{ "node": "Esperar 90s más", "type": "main", "index": 0 }]
+      ]
+    },
+    "Esperar 90s más": {
+      "main": [
+        [{ "node": "Code – Verificar Renders (2)", "type": "main", "index": 0 }]
+      ]
+    },
+    "Code – Verificar Renders (2)": {
+      "main": [
+        [{ "node": "¿Renders Listos? (2)", "type": "main", "index": 0 }]
+      ]
+    },
+    "¿Renders Listos? (2)": {
+      "main": [
+        [{ "node": "Merge – Éxito", "type": "main", "index": 1 }],
+        [{ "node": "Telegram – Error Subtítulos", "type": "main", "index": 0 }]
+      ]
+    },
+    "Merge – Éxito": {
+      "main": [
+        [{ "node": "HTTP – Trigger Pipeline Vídeos", "type": "main", "index": 0 }]
+      ]
+    },
+    "HTTP – Trigger Pipeline Vídeos": {
+      "main": [
+        [{ "node": "Telegram – Subtítulos ✅", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

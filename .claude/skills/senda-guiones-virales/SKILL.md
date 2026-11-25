@@ -1,0 +1,113 @@
+---
+name: senda-guiones-virales
+description: Metodología "Viral Copy" de la usuaria (gancho, historia, moraleja, CTA) y catálogo de 14 tipos de gancho adaptados a Senda Natural. Úsala SIEMPRE al escribir o revisar el guion, el gancho o el copy de un reel, carrusel o foto quote, antes de producir nada.
+---
+
+# Metodología Viral Copy (apuntes de la usuaria, 8-nov-2026)
+
+Estructura de un vídeo de 1.000.000 de visitas. Aplica a reels y, adaptada, a carruseles (el gancho es la slide 1) y a foto quote.
+
+## Los 6 pasos
+1. Generar una idea buena.
+2. Pasarla por la calculadora viral (mercado, tendencia, controversia, gancho claro, alcance, dato concreto; ya la usan las notas de los días 15-17).
+3. **Gancho.**
+4. **Historia o contexto.**
+5. **La moraleja.**
+6. **La CTA.**
+
+## Tiempos (reel de ~50 s, 1 min máximo)
+- Gancho: golpea en los **primeros 0,6 s** (primer fotograma + primera frase). La frase del gancho dura 3 s como mucho.
+- Historia / contexto: la parte larga, con rodeo.
+- Moraleja (la enseñanza, voz de experta).
+- CTA: la última frase.
+
+## 3. El gancho: 14 tipos (elegir uno por pieza y anotarlo en `notas`)
+| Tipo | Idea | Ejemplo Senda (adaptable) |
+|---|---|---|
+| Cotilla | Algo que "no se cuenta" | "Lo que casi nadie cuenta de lo que te pones en la cara cada mañana." |
+| Hoyo | Dejar a medias, se resuelve al final | "Hay un error que cometemos casi todas por la noche, y no es lavarnos la cara. Te lo cuento al final." |
+| Fórmula | "Cómo conseguí / cómo entendí…" (la fórmula tiene que ser concreta y real) | "Cómo entendí por fin qué necesitaba mi piel sin probar diez cremas." |
+| Negativo | "Nunca…" | "Nunca compres una crema sin mirar esto primero." |
+| Conexiones discordantes | "¿Qué tienen en común A y B?" | "¿Qué tienen en común tu yogur y tu crema?" (día 15) |
+| Reto | Polarizar y validar para que respondan | "Si todavía crees que cuanto más cara, mejor funciona, este vídeo es para ti." |
+| Había una vez | Arranque de cuento | "Había una vez una mujer con cuatro cremas sin terminar." |
+| Pregunta inducida | Una pregunta cuya respuesta es "sí" | "¿No te ha pasado que sales de casa segura y a las diez ya no te reconoces?" |
+| Sorpresa | Dato o giro inesperado | "Lo que parecía cansancio no siempre lo es." |
+| Regla de 3 | Tres cosas / señales | "Tres señales de que tu crema no está hecha para ti." |
+| Frase célebre | Una cita (solo si es real y verificable) | Solo con cita comprobada; nunca inventada. |
+| Enemigo común | Un "contra quién" compartido | "Las listas de ingredientes imposibles de leer." (el enemigo es la confusión, nunca una persona ni una marca concreta) |
+| Regla del 2 | Dos cosas | "Dos cosas que haces cada mañana y que tu piel no te ha pedido." |
+| Contracorriente | Ir contra lo que se da por hecho | "No necesitas más pasos. Necesitas una crema pensada para ti." |
+| Accionador | Pide una acción ya | "Guarda este vídeo antes de comprar tu próxima crema." |
+
+Lectura dudosa en los apuntes (confirmar con la usuaria): "gancho cotilla", "gancho hoyo → dejar a medias" y la condición de la fórmula ("pero la fórmula tiene que ser…").
+
+## 4. Historia o contexto
+- Dar un rodeo con contenido o historia hasta el final, donde se da la solución. **Lo más importante, siempre al final.**
+- Contenido de relleno apalancándose en: metáforas (nuestra firma: tornillo, GPS, jardín, maleta…), estudios científicos con credibilidad en el mercado y tendencias de temas actuales.
+- Famosos: solo si lo decide la usuaria. Estudios: solo reales y verificables, sin cifras inventadas, y siempre pasando por las GC Rules.
+
+## 5. La moraleja
+- La enseñanza que hay detrás del contenido: lo que la gente puede aprender y quiere saber del vídeo que está viendo. Es la solución de la historia. Es lo que distingue a la experta (La Investigadora / "tu asesora de piel") de una influencer.
+
+## 6. La CTA
+- Qué quieres que haga la gente cuando acaba el vídeo. Tres condiciones:
+  1. **Clara** (simple, una sola acción).
+  2. **Concreta** (llevarlo a tierra: guarda, comenta esta palabra, haz el diagnóstico).
+  3. **Con un beneficio claro y real**, nunca inventado.
+- En Senda siguen mandando las reglas de marca: CTA A (diagnóstico gratuito, enlace www.sendanatural.net, "link en bio"), B (guardar / comentar / compartir), C (seguir). Nunca checkout ni venta automática. Si se pide una palabra en comentarios, que el flujo de respuesta ya exista antes de publicarlo.
+
+## Plantilla de guion (rellenar antes de producir)
+- **Idea ganadora:** …
+- **Objetivo:** diagnóstico (A) / engagement (B) / seguir (C). No "venta directa".
+- **Gancho** (tipo): …
+- **Historia / contexto:** …
+- **Moraleja:** …
+- **CTA:** …
+
+## Ritmo visual (idea EN RESERVA, no aplicar)
+- Apunte de la usuaria: "vídeos con imágenes cada 0,5 segundos". Decisión del 8-nov: NO aplicarlo por ahora; se mantiene el ritmo cinematográfico actual. Solo se retoma si los reels no dan los resultados esperados, y siempre con su visto bueno.
+
+## Compatibilidad con las reglas de Senda
+- Sin "rutina", sin "Ringana", sin cifras o plazos inventados, sin testimonios inventados, sin promesas de salud ni de rejuvenecimiento ("cómo rejuveneces…" del apunte se adapta a "cómo entendí…"). Firma "Tu asesora de piel · Senda Natural".
+- Cada guion nuevo registra en `notas` el tipo de gancho usado, para variar de uno a otro y no repetir dos días seguidos.
+
+## Máximo dolor + gancho lo más viral posible (norma 22-nov, usuaria)
+- Todo reel debe ser un vídeo viral: antes de escribir, identificar el DOLOR MÁS AGUDO de quien sufre ese tema concreto (la escena exacta: el espejo, la foto, el comentario ajeno, el momento del día) y escribir desde ahí, con sus propias palabras.
+- El gancho (primeros 0,6 s) es lo más importante: elegir entre los 14 tipos el que más duela o más intrigue, probar 3 versiones y quedarse con la más fuerte. Registrar tipo y versiones descartadas en `notas`.
+- Estructura: dolor concreto → "te veo" (validación) → giro/moraleja de experta → CTA clara.
+- Límites de marca: sin promesas de salud ni rejuvenecimiento, sin cifras ni testimonios inventados, sin "rutina", sin productos por nombre. Doler no es humillar: se valida, no se culpa.
+
+## Qué atrae más en perfiles de IG (investigación 22-nov-2026) y cómo aplicarlo
+Fuentes: guías de creadores y herramientas (opinión de profesionales, no datos oficiales de Instagram) + lo que Mosseri ha dicho públicamente: las señales principales son tiempo de visualización, likes por alcance y ENVÍOS (DM) por alcance. Revisar de vez en cuando; los pesos exactos no son públicos.
+
+**Guiones (hook + estructura)**
+1. Gancho que nombra un síntoma o escena concreta, no la categoría ("cuando te miras en el espejo y levantas la mejilla con la mano", no "problemas de piel").
+2. Mito/error + contradicción: el que más comentarios genera (mejor que los que solo buscan likes). Sin atacar marcas ni personas.
+3. Aviso/urgencia ("antes de comprar tu próxima crema, mira esto"): empuja a guardar.
+4. Contenido de referencia (criterios, señales, qué mirar) que se guarda para consultarlo.
+5. Contenido "enviable": una frase tan exacta que piensas en alguien y se lo mandas ("esto es para la que…"). Escribir pensando en el ENVÍO, no solo en el like.
+6. Autenticidad humana sobre pulido de anuncio: tono de conversación, imperfección real, voz de experta cercana.
+7. Se entiende sin sonido: subtítulos grandes y llamativos (ya en el flujo OpusClip).
+8. Retención: primer fotograma con acción y texto en pantalla, cortes cada 1-2 s, el giro importante al final.
+
+**Imágenes / planos**
+- Primer fotograma con rostro/gesto reconocible y emoción real, o una acción clara con las manos; nunca un plano estático decorativo.
+- Prueba visual en los primeros segundos (antes/después de situación, no de resultados médicos), texturas y primeros planos.
+- Planos nuevos con movimiento real (norma de ritmo/dirección), luz cálida de cine, vertical 9:16 con zona segura 4:5.
+- Portada: una frase de dolor grande y legible dentro del recorte 4:5.
+
+**Cada guion nuevo registra en `notas`:** tipo de gancho, el dolor concreto, qué señal busca (comentario / guardado / envío) y a quién se lo enviaría la espectadora.
+
+## Formatos virales y no repetir (norma 22-nov, usuaria)
+Investigación en guías de creadores 2026 (opinión de profesionales, sin datos oficiales): los formatos que más se repiten en Reels virales, de cualquier nicho, son:
+1. **Lista enumerada**: «Tres cosas que [haces / guardas / dejas de hacer] y que…». Se enumeran en voz y en pantalla (una, dos, tres) y se cierra con un giro final («y hay una cuarta: tú»). Ejemplo ya producido: día 29.
+2. **Deja de hacer…**: corrección que la espectadora puede comprobar en su propio hábito.
+3. **POV**: «POV: llevas dos años guardando la mascarilla para cuando haya algo».
+4. **Nadie te cuenta…**: información interna. OJO: ya muy usado en Senda (días 2, 3, 4, idea 2); usar solo si es una idea nueva.
+5. **Experimento / tiempo**: «Probé X durante Y» (solo si es real; nunca inventado).
+6. **Mito / error común** y **pregunta incómoda**.
+- Regla de variedad: no usar el mismo formato dos días seguidos; no abrir con «Esa…» ni «Nadie te…» si ya se usó en los últimos 10 días.
+- Antes de producir: consulta SQL de arranques ya usados (`content_calendar.guion` línea del HOOK y `hook_tests.gancho`) y lista de escenas ya usadas. Anotar en `notas` la lista de planos del reel para poder auditarlos.
+- Planos prohibidos por repetición: espejo de baño, tarro/bote en primer plano como protagonista, móvil enviando el mensaje, espejo de ascensor, foto antigua, cajón con tarro, cena familiar donde sirve. Usar escenas nuevas (coche, peluquería, escaparate, parque, café, cocina, calle, etc.).
+Fuentes: [Captain Hook](https://captain-hook.ai/article/reels-hook-formats-2026), [OpusClip blog](https://www.opus.pro/blog/instagram-reels-hook-formulas), [UGC Copilot](https://ugccopilot.ai/blog/viral-hooks-that-convert/).
