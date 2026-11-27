@@ -385,6 +385,66 @@
       "generated_at": "2026-09-10"
     }
   ],
-  "pending": [],
+  "pending": [
+    {
+      "day": 36,
+      "date": "06/10/2026",
+      "format": "Carrusel",
+      "topic": "El microbioma que nadie te enseñó a cuidar",
+      "status": "partial",
+      "partial_job_ids": ["6a0ba81d-74e1-4758-b5b1-36d9786fa250", "739ef385-c6ae-44eb-a437-80be2e4c0a7c", "0e860a03-9081-4513-a5fb-7e8f239d0828"],
+      "notes": "3 de 6 slides generadas. Faltan 3. Créditos agotados."
+    },
+    {
+      "day": 37,
+      "date": "07/10/2026",
+      "format": "Reel",
+      "topic": "La grasa que tu piel fabrica para sobrevivir",
+      "status": "pending",
+      "notes": "No generado — créditos agotados"
+    },
+    {
+      "day": 38,
+      "date": "08/10/2026",
+      "format": "Carrusel",
+      "topic": "El retinol que prometió milagros y destruyó tu barrera",
+      "status": "partial",
+      "partial_job_ids": ["c6c3d2d9-a5e5-412d-ad9c-8e75029be9fc"],
+      "notes": "1 de 6 slides generadas. Faltan 5. Créditos agotados."
+    },
+    {
+      "day": 39,
+      "date": "09/10/2026",
+      "format": "Reel",
+      "topic": "El ingrediente que mezclaste mal esta mañana",
+      "status": "pending",
+      "notes": "No generado — créditos agotados"
+    },
+    {
+      "day": 40,
+      "date": "10/10/2026",
+      "format": "Stories",
+      "topic": "La edad en que tu piel dejó de recuperarse sola",
+      "status": "pending",
+      "notes": "No generado — créditos agotados"
+    },
+    {
+      "day": 41,
+      "date": "11/10/2026",
+      "format": "Foto / Quote",
+      "topic": "La piel siempre habla. El problema es que nadie la escucha.",
+      "status": "partial",
+      "partial_job_ids": ["dde0a744-a5b2-4332-9208-2aa00c06a862"],
+      "notes": "1 imagen generada — completa para Foto/Quote"
+    },
+    {
+      "day": 42,
+      "date": "12/10/2026",
+      "format": "Reel",
+      "topic": "La máscara que tu piel lleva para parecer hidratada",
+      "status": "pending",
+      "notes": "No generado — créditos agotados"
+    }
+  ],
   "notes": "Tracking automático de vídeos generados. Nunca repetir el mismo día/tema."
 }
